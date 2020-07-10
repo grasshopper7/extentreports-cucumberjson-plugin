@@ -1,0 +1,243 @@
+[
+  {
+    "line": 3,
+    "elements": [
+      {
+        "start_timestamp": "2020-06-18T12:35:46.659Z",
+        "before": [
+          {
+            "result": {
+              "duration": 252000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepdefs.Stepdefs.before()"
+            }
+          }
+        ],
+        "line": 6,
+        "name": "Scenario Number One",
+        "description": "",
+        "id": "scenarios-feature-file;scenario-number-one",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 70000000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Write a \u0027given\u0027 step with precondition in \u0027Scenario One\u0027",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\u0027given\u0027",
+                  "offset": 8
+                },
+                {
+                  "val": "\u0027Scenario One\u0027",
+                  "offset": 42
+                }
+              ],
+              "location": "stepdefs.Stepdefs.step(java.lang.String,java.lang.String)"
+            },
+            "after": [
+              {
+                "result": {
+                  "duration": 250000000,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "stepdefs.Stepdefs.afterStep()"
+                }
+              }
+            ],
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Complete action in \u0027when\u0027 step in \u0027Scenario One\u0027",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\u0027when\u0027",
+                  "offset": 19
+                },
+                {
+                  "val": "\u0027Scenario One\u0027",
+                  "offset": 34
+                }
+              ],
+              "location": "stepdefs.Stepdefs.step(java.lang.String,java.lang.String)"
+            },
+            "after": [
+              {
+                "result": {
+                  "duration": 251000000,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "stepdefs.Stepdefs.afterStep()"
+                }
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "Validate the outcome in \u0027then\u0027 step in \u0027Scenario One\u0027",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\u0027then\u0027",
+                  "offset": 24
+                },
+                {
+                  "val": "\u0027Scenario One\u0027",
+                  "offset": 39
+                }
+              ],
+              "location": "stepdefs.Stepdefs.step(java.lang.String,java.lang.String)"
+            },
+            "after": [
+              {
+                "result": {
+                  "duration": 250000000,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "stepdefs.Stepdefs.afterStep()"
+                }
+              }
+            ],
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@TagFeature"
+          },
+          {
+            "name": "@TagScenarioOne"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-06-18T12:35:47.828Z",
+        "before": [
+          {
+            "result": {
+              "duration": 254000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepdefs.Stepdefs.before()"
+            }
+          }
+        ],
+        "line": 12,
+        "name": "Scenario Number Two",
+        "description": "",
+        "id": "scenarios-feature-file;scenario-number-two",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "Write a \u0027given\u0027 step with precondition in \u0027Scenario Two\u0027",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\u0027given\u0027",
+                  "offset": 8
+                },
+                {
+                  "val": "\u0027Scenario Two\u0027",
+                  "offset": 42
+                }
+              ],
+              "location": "stepdefs.Stepdefs.step(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "Complete action in \u0027when\u0027 step in \u0027Scenario Two\u0027",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\u0027when\u0027",
+                  "offset": 19
+                },
+                {
+                  "val": "\u0027Scenario Two\u0027",
+                  "offset": 34
+                }
+              ],
+              "location": "stepdefs.Stepdefs.step(java.lang.String,java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1000000,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "Validate the outcome in \u0027then\u0027 step in \u0027Scenario Two\u0027",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\u0027then\u0027",
+                  "offset": 24
+                },
+                {
+                  "val": "\u0027Scenario Two\u0027",
+                  "offset": 39
+                }
+              ],
+              "location": "stepdefs.Stepdefs.step(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@TagFeature"
+          },
+          {
+            "name": "@TagScenarioTwo"
+          }
+        ]
+      }
+    ],
+    "name": "Scenarios feature file",
+    "description": "Scenarios feature file description",
+    "id": "scenarios-feature-file",
+    "keyword": "Feature",
+    "uri": "classpath:stepdefs/scenarios.feature",
+    "tags": [
+      {
+        "name": "@TagFeature",
+        "type": "Tag",
+        "location": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    ]
+  }
+]

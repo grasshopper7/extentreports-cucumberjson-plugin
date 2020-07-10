@@ -1,0 +1,204 @@
+[
+  {
+    "line": 3,
+    "elements": [
+      {
+        "start_timestamp": "2020-06-18T17:14:23.682Z",
+        "before": [
+          {
+            "result": {
+              "duration": 250000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepdefs.Stepdefs.before()"
+            }
+          }
+        ],
+        "line": 6,
+        "name": "Scenario Number One",
+        "description": "",
+        "id": "scenarios-feature-file-no1;scenario-number-one",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 81000000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Write a \u0027given\u0027 step with precondition in \u0027Scenario One\u0027",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\u0027given\u0027",
+                  "offset": 8
+                },
+                {
+                  "val": "\u0027Scenario One\u0027",
+                  "offset": 42
+                }
+              ],
+              "location": "stepdefs.Stepdefs.step(java.lang.String,java.lang.String)"
+            },
+            "after": [
+              {
+                "result": {
+                  "duration": 250000000,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "stepdefs.Stepdefs.afterStep()"
+                }
+              }
+            ],
+            "keyword": "Given "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@TagFeature"
+          },
+          {
+            "name": "@TagScenarioOne"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-06-18T17:14:24.343Z",
+        "before": [
+          {
+            "result": {
+              "duration": 250000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepdefs.Stepdefs.before()"
+            }
+          }
+        ],
+        "line": 12,
+        "name": "Scenario Number Two",
+        "description": "",
+        "id": "scenarios-feature-file-no1;scenario-number-two",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "Write a \u0027given\u0027 step with precondition in \u0027Scenario Two\u0027",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\u0027given\u0027",
+                  "offset": 8
+                },
+                {
+                  "val": "\u0027Scenario Two\u0027",
+                  "offset": 42
+                }
+              ],
+              "location": "stepdefs.Stepdefs.step(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@TagFeature"
+          },
+          {
+            "name": "@TagScenarioTwo"
+          }
+        ]
+      }
+    ],
+    "name": "Scenarios feature file No1",
+    "description": "",
+    "id": "scenarios-feature-file-no1",
+    "keyword": "Feature",
+    "uri": "classpath:stepdefs/scenarios.feature",
+    "tags": [
+      {
+        "name": "@TagFeature",
+        "type": "Tag",
+        "location": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    ]
+  },
+  {
+    "line": 3,
+    "elements": [
+      {
+        "start_timestamp": "2020-06-18T17:14:24.609Z",
+        "before": [
+          {
+            "result": {
+              "duration": 250000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepdefs.Stepdefs.before()"
+            }
+          }
+        ],
+        "line": 5,
+        "name": "Scenario Number Three",
+        "description": "",
+        "id": "scenarios-feature-file-no2;scenario-number-three",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "Write a \u0027given\u0027 step with precondition in \u0027Scenario One\u0027",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\u0027given\u0027",
+                  "offset": 8
+                },
+                {
+                  "val": "\u0027Scenario One\u0027",
+                  "offset": 42
+                }
+              ],
+              "location": "stepdefs.Stepdefs.step(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@TagFeature"
+          }
+        ]
+      }
+    ],
+    "name": "Scenarios feature file No2",
+    "description": "",
+    "id": "scenarios-feature-file-no2",
+    "keyword": "Feature",
+    "uri": "classpath:stepdefs/scenarios2.feature",
+    "tags": [
+      {
+        "name": "@TagFeature",
+        "type": "Tag",
+        "location": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    ]
+  }
+]

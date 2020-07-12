@@ -27,9 +27,6 @@ public class ExtentReportsCucumberPlugin extends AbstractMojo {
 	@Parameter(property = "extentreport.extentPropertiesDirectory", defaultValue = "")
 	private String extentPropertiesDirectory;
 
-	@Parameter(property = "extentreport.extentPropertiesFileName", defaultValue = "")
-	private String extentPropertiesFileName;
-
 	private JsonPathCollector jsonPathCollector;
 	private JsonFileConverter jsonFileConverter;
 	private ReportProperties reportProperties;
@@ -59,7 +56,7 @@ public class ExtentReportsCucumberPlugin extends AbstractMojo {
 			List<Path> jsonFilePaths = jsonPathCollector.retrieveFilePaths(cucumberJsonReportDirectory);
 			List<Feature> features = jsonFileConverter.retrieveFeaturesFromReport(jsonFilePaths);
 
-			reportProperties.loadPropertyFiles(extentPropertiesDirectory, extentPropertiesFileName);
+			reportProperties.loadPropertyFiles(extentPropertiesDirectory);
 
 			reportInitializer.instantiate();
 

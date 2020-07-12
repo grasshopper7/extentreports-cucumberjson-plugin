@@ -46,7 +46,7 @@ public class ReportProperties {
 		properties.putAll(props);
 	}
 
-	public void loadPropertyFiles(String folderName, String fileName) {
+	void loadPropertyFiles(String folderName, String fileName) {
 		if (folderName != null && !folderName.isEmpty())
 			this.reportsPropertiesFolder = folderName;
 		if (fileName != null && !fileName.isEmpty())
@@ -54,6 +54,10 @@ public class ReportProperties {
 
 		loadDefaultPropertyFile();
 		loadProjectPropertyFile();
+	}
+	
+	public void loadPropertyFiles(String folderName) {
+		loadPropertyFiles(folderName, "");
 	}
 
 	private void loadDefaultPropertyFile() {

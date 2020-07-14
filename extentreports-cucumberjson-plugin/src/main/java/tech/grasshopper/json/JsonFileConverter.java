@@ -1,8 +1,7 @@
 package tech.grasshopper.json;
 
-import static java.nio.file.Files.readAllBytes;
-
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 import tech.grasshopper.exception.ExtentReportsCucumberPluginException;
@@ -35,19 +35,10 @@ public class JsonFileConverter {
 		Feature[] parsedFeatures = null;
 
 		for (Path jsonFilePath : jsonFilePaths) {
-			byte[] bytes = null;
+			
 			try {
-				bytes = readAllBytes(jsonFilePath);
-			} catch (IOException e) {
-				logger.warn(String.format("Skipping json report at '%s', as unable to read json report file.",
-						jsonFilePath));
-				continue;
-			}
-
-			String jsonString = new String(bytes).trim();
-			try {
-				parsedFeatures = gson.fromJson(jsonString, Feature[].class);
-			} catch (JsonSyntaxException e) {
+				parsedFeatures = gson.fromJson(Files.newBufferedReader(jsonFilePath), Feature[].class);
+			} catch (JsonSyntaxException  | JsonIOException | IOException e) {
 				logger.warn(String.format(
 						"Skipping json report at '%s', as unable to parse json report file to Feature pojo.",
 						jsonFilePath));

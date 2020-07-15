@@ -43,10 +43,10 @@ public class EmbeddedProcessor {
 			put("video/ogg", "ogg");
 		}
 	};
-	
-	private ReportProperties reportProperties;	
+
+	private ReportProperties reportProperties;
 	private ExtentReportsCucumberLogger logger;
-	
+
 	@Inject
 	public EmbeddedProcessor(ReportProperties reportProperties, ExtentReportsCucumberLogger logger) {
 		this.reportProperties = reportProperties;
@@ -58,8 +58,9 @@ public class EmbeddedProcessor {
 			String name = embed.getName() == null ? "" : embed.getName();
 			String filePath = embed.getFilePath();
 
-			if(filePath == null || filePath.isEmpty()) {
-				logger.warn("Skipping adding embedded file as filepath is empty for step - '" + test.getModel().getName() + "'.");
+			if (filePath == null || filePath.isEmpty()) {
+				logger.warn("Skipping adding embedded file as filepath is empty for step - '"
+						+ test.getModel().getName() + "'.");
 				return;
 			}
 			try {
@@ -67,7 +68,8 @@ public class EmbeddedProcessor {
 				// Embedding workaround for html report.
 				test.addScreenCaptureFromPath(filePath);
 			} catch (Exception e) {
-				logger.warn("Skipping adding embedded file for step - '" + test.getModel().getName() + "' as error in processing.");
+				logger.warn("Skipping adding embedded file for step - '" + test.getModel().getName()
+						+ "' as error in processing.");
 				return;
 			}
 		}
@@ -77,7 +79,7 @@ public class EmbeddedProcessor {
 		List<Embedded> embeddings = collectAllEmbeddings(features);
 		processEmbeddings(embeddings);
 	}
-	
+
 	public void processEmbeddings(List<Embedded> embeddings) {
 		for (Embedded embed : embeddings) {
 			String mimeType = embed.getMimeType();
@@ -88,7 +90,8 @@ public class EmbeddedProcessor {
 				try {
 					Files.write(path, Base64.decode(embed.getData()));
 				} catch (IOException e) {
-					logger.warn("Skipping embedded file creation at location - " + path.toString() + ", due to error in creating file.");
+					logger.warn("Skipping embedded file creation at location - " + path.toString()
+							+ ", due to error in creating file.");
 					continue;
 				}
 				// No need anymore
@@ -100,39 +103,60 @@ public class EmbeddedProcessor {
 		}
 	}
 
+	public void processEmbedding(Embedded embedded) {
+		String mimeType = embedded.getMimeType();
+		String extension = MIME_TYPES_EXTENSIONS.get(mimeType);
+
+		if (extension != null) {
+			Path path = createEmbeddedFileStructure(extension);
+			try {
+				Files.write(path, Base64.decode(embedded.getData()));
+			} catch (IOException e) {
+				logger.warn("Skipping embedded file creation at location - " + path.toString()
+						+ ", due to error in creating file.");
+				return;
+			} finally {
+				// No need anymore
+				embedded.setData("");
+			}
+			embedded.setFilePath(path.toString());
+		} else {
+			logger.warn("Mime type '" + mimeType + "' not supported.");
+		}
+	}
+
 	private List<Embedded> collectAllEmbeddings(List<Feature> features) {
 		List<Embedded> embeddings = new ArrayList<>();
-		List<Scenario> scenarios = features.stream().flatMap(f -> f.getElements().stream())
-				.collect(toList());
+		List<Scenario> scenarios = features.stream().flatMap(f -> f.getElements().stream()).collect(toList());
 		List<Step> steps = scenarios.stream().flatMap(s -> s.getSteps().stream()).collect(toList());
 
 		// scenarioHookEmbeds
 		embeddings.addAll(scenarios.stream().flatMap(s -> s.getBeforeAfterHooks().stream())
 				.flatMap(h -> h.getEmbeddings().stream()).collect(toList()));
-		
+
 		// stepEmbeds
 		embeddings.addAll(steps.stream().flatMap(s -> s.getEmbeddings().stream()).collect(toList()));
-		
+
 		// stepHookEmbeds
 		embeddings.addAll(steps.stream().flatMap(s -> s.getBeforeAfterHooks().stream())
 				.flatMap(h -> h.getEmbeddings().stream()).collect(toList()));
 		return embeddings;
 	}
-	
+
 	private Path createEmbeddedFileStructure(String extension) {
-		StringBuilder fileName = new StringBuilder("embedded").append(EMBEDDED_INT.incrementAndGet())
-				.append(".").append(extension);
+		StringBuilder fileName = new StringBuilder("embedded").append(EMBEDDED_INT.incrementAndGet()).append(".")
+				.append(extension);
 		String embedDirPath = reportProperties.getReportScreenshotLocation();
 
 		File dir = new File(embedDirPath);
-		//Create directory if not existing
-	    if (!dir.exists()) 
-	    	dir.mkdirs();
-	    
+		// Create directory if not existing
+		if (!dir.exists())
+			dir.mkdirs();
+
 		File file = new File(embedDirPath + "/" + fileName);
 		Path path = Paths.get(file.getAbsolutePath());
-		//Delete existing embedded stuff
-		if(file.exists())
+		// Delete existing embedded stuff
+		if (file.exists())
 			file.delete();
 		return path;
 	}

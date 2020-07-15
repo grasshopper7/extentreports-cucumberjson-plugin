@@ -13,7 +13,6 @@ import tech.grasshopper.json.JsonFileConverter;
 import tech.grasshopper.json.JsonPathCollector;
 import tech.grasshopper.logging.ExtentReportsCucumberLogger;
 import tech.grasshopper.pojo.Feature;
-import tech.grasshopper.processor.EmbeddedProcessor;
 import tech.grasshopper.properties.ReportProperties;
 import tech.grasshopper.reporters.ReporterInitializer;
 import tech.grasshopper.test.ExtentTestManager;
@@ -32,19 +31,17 @@ public class ExtentReportsCucumberPlugin extends AbstractMojo {
 	private ReportProperties reportProperties;
 	private ReporterInitializer reportInitializer;
 	private ExtentTestManager extentTestManager;
-	private EmbeddedProcessor embeddedProcessor;
 	private ExtentReportsCucumberLogger logger;
 
 	@Inject
 	public ExtentReportsCucumberPlugin(JsonPathCollector jsonPathCollector, JsonFileConverter jsonFileConverter,
-			ReportProperties reportProperties, ReporterInitializer reportInitializer, ExtentTestManager extentTestManager,
-			EmbeddedProcessor embeddedProcessor, ExtentReportsCucumberLogger logger) {
+			ReportProperties reportProperties, ReporterInitializer reportInitializer,
+			ExtentTestManager extentTestManager, ExtentReportsCucumberLogger logger) {
 		this.jsonPathCollector = jsonPathCollector;
 		this.jsonFileConverter = jsonFileConverter;
 		this.reportProperties = reportProperties;
 		this.reportInitializer = reportInitializer;
 		this.extentTestManager = extentTestManager;
-		this.embeddedProcessor = embeddedProcessor;
 		this.logger = logger;
 	}
 
@@ -60,15 +57,13 @@ public class ExtentReportsCucumberPlugin extends AbstractMojo {
 
 			reportInitializer.instantiate();
 
-			embeddedProcessor.processFeatures(features);
-
 			extentTestManager.initialize(features);
 			extentTestManager.flushToReporters();
 
 			logger.info("FINISHED EXTENT REPORT GENERATION PLUGIN");
 		} catch (Throwable t) {
 			// Report will not result in build failure.
-			//t.printStackTrace();
+			t.printStackTrace();
 			logger.error(String.format("STOPPING EXTENT REPORT GENERATION - %s", t.getMessage()));
 		}
 	}

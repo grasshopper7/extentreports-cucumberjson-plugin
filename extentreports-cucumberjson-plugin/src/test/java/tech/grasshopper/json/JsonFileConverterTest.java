@@ -29,6 +29,7 @@ import tech.grasshopper.pojo.Feature;
 import tech.grasshopper.pojo.Hook;
 import tech.grasshopper.pojo.Scenario;
 import tech.grasshopper.pojo.Step;
+import tech.grasshopper.processor.EmbeddedProcessor;
 
 public class JsonFileConverterTest {
 
@@ -37,11 +38,13 @@ public class JsonFileConverterTest {
 
 	private ExtentReportsCucumberLogger logger;
 	private JsonFileConverter jsonFileConverter;
+	private EmbeddedProcessor embeddedProcessor;
 
 	@Before
 	public void setup() {
 		logger = mock(ExtentReportsCucumberLogger.class);
-		jsonFileConverter = new JsonFileConverter(logger);
+		embeddedProcessor = mock(EmbeddedProcessor.class);
+		jsonFileConverter = new JsonFileConverter(embeddedProcessor, logger);
 	}
 
 	@Test

@@ -12,25 +12,34 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 import tech.grasshopper.exception.ExtentReportsCucumberPluginException;
+import tech.grasshopper.json.deserializer.EmbeddedDeserializer;
 import tech.grasshopper.logging.ExtentReportsCucumberLogger;
+import tech.grasshopper.pojo.Embedded;
 import tech.grasshopper.pojo.Feature;
+import tech.grasshopper.processor.EmbeddedProcessor;
 
 @Singleton
 public class JsonFileConverter {
 
+	private EmbeddedProcessor embeddedProcessor;
 	private ExtentReportsCucumberLogger logger;
 
 	@Inject
-	public JsonFileConverter(ExtentReportsCucumberLogger logger) {
+	public JsonFileConverter(EmbeddedProcessor embeddedProcessor, ExtentReportsCucumberLogger logger) {
+		this.embeddedProcessor = embeddedProcessor;
 		this.logger = logger;
 	}
 
 	public List<Feature> retrieveFeaturesFromReport(List<Path> jsonFilePaths) {
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder()
+				  .registerTypeAdapter(Embedded.class, new EmbeddedDeserializer(embeddedProcessor))
+				  .create();
+		
 		List<Feature> features = new ArrayList<>();
 		Feature[] parsedFeatures = null;
 
@@ -44,7 +53,7 @@ public class JsonFileConverter {
 						jsonFilePath));
 				continue;
 			}
-
+			
 			if (parsedFeatures == null || parsedFeatures.length == 0) {
 				logger.warn(String.format(
 						"Skipping json report at '%s', parsing json report file returned no Feature pojo.",

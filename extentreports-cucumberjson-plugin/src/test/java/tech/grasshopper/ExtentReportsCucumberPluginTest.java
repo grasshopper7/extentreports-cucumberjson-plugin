@@ -15,7 +15,6 @@ import tech.grasshopper.exception.ExtentReportsCucumberPluginException;
 import tech.grasshopper.json.JsonFileConverter;
 import tech.grasshopper.json.JsonPathCollector;
 import tech.grasshopper.logging.ExtentReportsCucumberLogger;
-import tech.grasshopper.processor.EmbeddedProcessor;
 import tech.grasshopper.properties.ReportProperties;
 import tech.grasshopper.reporters.ReporterInitializer;
 import tech.grasshopper.test.ExtentTestManager;
@@ -28,7 +27,6 @@ public class ExtentReportsCucumberPluginTest {
 	private ReportProperties reportProperties;
 	private ReporterInitializer reportInitializer;
 	private ExtentTestManager extentTestManager;
-	private EmbeddedProcessor embeddedProcessor;
 	private ExtentReportsCucumberLogger logger;
 
 	@Before
@@ -39,11 +37,10 @@ public class ExtentReportsCucumberPluginTest {
 		reportProperties = mock(ReportProperties.class);
 		reportInitializer = mock(ReporterInitializer.class);
 		extentTestManager = mock(ExtentTestManager.class);
-		embeddedProcessor = mock(EmbeddedProcessor.class);
 		logger = mock(ExtentReportsCucumberLogger.class);
 
 		extentReportsCucumberPlugin = new ExtentReportsCucumberPlugin(jsonPathCollector, jsonFileConverter,
-				reportProperties, reportInitializer, extentTestManager, embeddedProcessor, logger);
+				reportProperties, reportInitializer, extentTestManager, logger);
 	}
 	
 	@Test

@@ -94,9 +94,11 @@ public class EmbeddedProcessorTest {
 		Embedded embed = new Embedded();
 		embed.setData(Base64.encodeFromFile("src/test/resources/tech/grasshopper/processor/image.png"));
 		embed.setMimeType("image/png");
-		List<Embedded> embeddings = new ArrayList<>();
-		embeddings.add(embed);
-		embeddedProcessor.processEmbeddings(embeddings);
+		/*
+		 * List<Embedded> embeddings = new ArrayList<>(); embeddings.add(embed);
+		 * embeddedProcessor.processEmbeddings(embeddings);
+		 */
+		embeddedProcessor.processEmbedding(embed);
 
 		assertEquals("Embedded object 'data' variable value should be empty.", "", embed.getData());
 		File copiedFile = new File(embed.getFilePath());
@@ -107,9 +109,11 @@ public class EmbeddedProcessorTest {
 	public void testInvalidFileExtension() {
 		Embedded embed = new Embedded();
 		embed.setMimeType("invalid/gibberish");
-		List<Embedded> embeddings = new ArrayList<>();
-		embeddings.add(embed);
-		embeddedProcessor.processEmbeddings(embeddings);
+		/*
+		 * List<Embedded> embeddings = new ArrayList<>(); embeddings.add(embed);
+		 * embeddedProcessor.processEmbeddings(embeddings);
+		 */
+		embeddedProcessor.processEmbedding(embed);
 
 		verify(logger, times(1))
 				.warn("Mime type '" + embed.getMimeType() + "' not supported.");

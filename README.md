@@ -4,6 +4,6 @@ This deals with generating Extent reports for Cucumber-JVM version 4.3 and above
 <dependency>
     <groupId>tech.grasshopper</groupId>
     <artifactId>extentreports-cucumberjson-plugin</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```

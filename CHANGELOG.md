@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.2.0 (2020-07-14)
+
+* Revert goal name to default
+
 ## 1.1.0 (2020-07-12)
 
 * Added goal name prefix

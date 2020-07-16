@@ -1,13 +1,10 @@
 package tech.grasshopper.processor;
 
-import static java.util.stream.Collectors.toList;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +19,6 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import net.iharder.Base64;
 import tech.grasshopper.logging.ExtentReportsCucumberLogger;
 import tech.grasshopper.pojo.Embedded;
-import tech.grasshopper.pojo.Feature;
-import tech.grasshopper.pojo.Scenario;
-import tech.grasshopper.pojo.Step;
 import tech.grasshopper.properties.ReportProperties;
 
 @Singleton
@@ -75,34 +69,6 @@ public class EmbeddedProcessor {
 		}
 	}
 
-	public void processFeatures(List<Feature> features) {
-		List<Embedded> embeddings = collectAllEmbeddings(features);
-		processEmbeddings(embeddings);
-	}
-
-	public void processEmbeddings(List<Embedded> embeddings) {
-		for (Embedded embed : embeddings) {
-			String mimeType = embed.getMimeType();
-			String extension = MIME_TYPES_EXTENSIONS.get(mimeType);
-
-			if (extension != null) {
-				Path path = createEmbeddedFileStructure(extension);
-				try {
-					Files.write(path, Base64.decode(embed.getData()));
-				} catch (IOException e) {
-					logger.warn("Skipping embedded file creation at location - " + path.toString()
-							+ ", due to error in creating file.");
-					continue;
-				}
-				// No need anymore
-				embed.setData("");
-				embed.setFilePath(path.toString());
-			} else {
-				logger.warn("Mime type '" + mimeType + "' not supported.");
-			}
-		}
-	}
-
 	public void processEmbedding(Embedded embedded) {
 		String mimeType = embedded.getMimeType();
 		String extension = MIME_TYPES_EXTENSIONS.get(mimeType);
@@ -123,24 +89,6 @@ public class EmbeddedProcessor {
 		} else {
 			logger.warn("Mime type '" + mimeType + "' not supported.");
 		}
-	}
-
-	private List<Embedded> collectAllEmbeddings(List<Feature> features) {
-		List<Embedded> embeddings = new ArrayList<>();
-		List<Scenario> scenarios = features.stream().flatMap(f -> f.getElements().stream()).collect(toList());
-		List<Step> steps = scenarios.stream().flatMap(s -> s.getSteps().stream()).collect(toList());
-
-		// scenarioHookEmbeds
-		embeddings.addAll(scenarios.stream().flatMap(s -> s.getBeforeAfterHooks().stream())
-				.flatMap(h -> h.getEmbeddings().stream()).collect(toList()));
-
-		// stepEmbeds
-		embeddings.addAll(steps.stream().flatMap(s -> s.getEmbeddings().stream()).collect(toList()));
-
-		// stepHookEmbeds
-		embeddings.addAll(steps.stream().flatMap(s -> s.getBeforeAfterHooks().stream())
-				.flatMap(h -> h.getEmbeddings().stream()).collect(toList()));
-		return embeddings;
 	}
 
 	private Path createEmbeddedFileStructure(String extension) {

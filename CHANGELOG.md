@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.3.0 (2020-07-16)
+
+* Changed handling of embedded files like images etc
+
 ## 1.2.0 (2020-07-14)
 
 * Revert goal name to default

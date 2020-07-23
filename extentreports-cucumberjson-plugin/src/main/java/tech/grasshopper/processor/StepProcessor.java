@@ -6,13 +6,15 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+
 import tech.grasshopper.pojo.Step;
 
 @Singleton
 public class StepProcessor {
-	
+
 	private DataTableProcessor dataTableProcessor;
-	
+
 	@Inject
 	public StepProcessor(DataTableProcessor dataTableProcessor) {
 		this.dataTableProcessor = dataTableProcessor;
@@ -22,19 +24,17 @@ public class StepProcessor {
 		updateDataTableMarkup(step);
 		updateDocString(step);
 	}
-	
+
 	protected void updateDataTableMarkup(Step step) {
-		List<List<String>> cells = step.getRows().stream().map(r -> r.getCells()).collect(Collectors.toList());		
-		if(cells.size() < 1)
-			return;	
-		
+		List<List<String>> cells = step.getRows().stream().map(r -> r.getCells()).collect(Collectors.toList());
+		if (cells.size() < 1)
+			return;
 		step.setDataTableMarkup(dataTableProcessor.processTable(cells));
 	}
-	
+
 	protected void updateDocString(Step step) {
-		if(step.getDocString().getValue() == null || step.getDocString().getValue().isEmpty())
+		if (step.getDocString().getValue() == null || step.getDocString().getValue().isEmpty())
 			return;
-		else
-			step.setDocStringMarkup(step.getDocString().getValue().replaceAll("(\r\n|\n)", "<br />"));
+		step.setDocStringMarkup(MarkupHelper.createCodeBlock(step.getDocString().getValue()).getMarkup());
 	}
 }

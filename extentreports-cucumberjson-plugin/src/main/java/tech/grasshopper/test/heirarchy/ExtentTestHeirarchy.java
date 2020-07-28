@@ -23,6 +23,7 @@ import tech.grasshopper.processor.ErrorMessageProcessor;
 import tech.grasshopper.processor.FeatureProcessor;
 import tech.grasshopper.processor.ScenarioProcessor;
 import tech.grasshopper.processor.StepProcessor;
+import tech.grasshopper.properties.ReportProperties;
 
 public abstract class ExtentTestHeirarchy {
 
@@ -36,23 +37,25 @@ public abstract class ExtentTestHeirarchy {
 	protected StepProcessor stepProcessor;
 	protected ErrorMessageProcessor errorMessageProcessor;
 	protected EmbeddedProcessor embeddedProcessor;
+	private ReportProperties reportProperties;
 
 	@Inject
 	protected ExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
 			StepProcessor stepProcessor, ErrorMessageProcessor errorMessageProcessor,
-			EmbeddedProcessor embeddedProcessor) {
+			EmbeddedProcessor embeddedProcessor, ReportProperties reportProperties) {
 		this.featureProcessor = featureProcessor;
 		this.scenarioProcessor = scenarioProcessor;
 		this.stepProcessor = stepProcessor;
 		this.errorMessageProcessor = errorMessageProcessor;
 		this.embeddedProcessor = embeddedProcessor;
+		this.reportProperties = reportProperties;
 		
 	}
 	
 	protected ExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
 			StepProcessor stepProcessor, ErrorMessageProcessor errorMessageProcessor,
-			EmbeddedProcessor embeddedProcessor, ExtentReports extent) {
-		this(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor);
+			EmbeddedProcessor embeddedProcessor, ExtentReports extent, ReportProperties reportProperties) {
+		this(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor, reportProperties);
 		this.extent = extent;		
 	}
 
@@ -121,6 +124,8 @@ public abstract class ExtentTestHeirarchy {
 
 	public List<ExtentTest> createHookExtentNode(ExtentTest parentExtentTest, List<Hook> hooks) {
 		List<ExtentTest> hookTests = new ArrayList<>();
+		if(!reportProperties.getDisplayAllHooks())
+			hooks.removeIf(h -> h.getEmbeddings().isEmpty() && h.getOutput().isEmpty());
 		hooks.forEach(h -> hookTests.add(createHookExtentNode(parentExtentTest, h)));
 		return hookTests;
 	}

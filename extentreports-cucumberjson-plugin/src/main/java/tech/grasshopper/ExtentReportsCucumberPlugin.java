@@ -25,6 +25,9 @@ public class ExtentReportsCucumberPlugin extends AbstractMojo {
 
 	@Parameter(property = "extentreport.extentPropertiesDirectory", defaultValue = "")
 	private String extentPropertiesDirectory;
+	
+	@Parameter(property = "extentreport.displayAllHooks", defaultValue = "false")
+	private String displayAllHooks;
 
 	private JsonPathCollector jsonPathCollector;
 	private JsonFileConverter jsonFileConverter;
@@ -47,6 +50,7 @@ public class ExtentReportsCucumberPlugin extends AbstractMojo {
 
 	public void execute() {
 		try {
+			reportProperties.setDisplayAllHooks(displayAllHooks);
 			logger.initializeLogger(getLog());
 			logger.info("STARTED EXTENT REPORT GENERATION PLUGIN");
 

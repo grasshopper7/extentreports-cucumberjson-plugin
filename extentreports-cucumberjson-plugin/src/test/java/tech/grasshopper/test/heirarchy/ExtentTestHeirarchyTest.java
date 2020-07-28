@@ -29,6 +29,7 @@ import tech.grasshopper.processor.ErrorMessageProcessor;
 import tech.grasshopper.processor.FeatureProcessor;
 import tech.grasshopper.processor.ScenarioProcessor;
 import tech.grasshopper.processor.StepProcessor;
+import tech.grasshopper.properties.ReportProperties;
 
 public class ExtentTestHeirarchyTest {
 
@@ -39,6 +40,7 @@ public class ExtentTestHeirarchyTest {
 	private ErrorMessageProcessor errorMessageProcessor;
 	private EmbeddedProcessor embeddedProcessor;
 	private ExtentReports extent;
+	private ReportProperties reportProperties;
 
 	@Before
 	public void setup() {
@@ -48,9 +50,10 @@ public class ExtentTestHeirarchyTest {
 		errorMessageProcessor = mock(ErrorMessageProcessor.class);
 		embeddedProcessor = mock(EmbeddedProcessor.class);
 		extent = new ExtentReports();
+		reportProperties = mock(ReportProperties.class);
 
 		extentTestHeirarchy = new DefaultExtentTestHeirarchy(featureProcessor, scenarioProcessor, stepProcessor,
-				errorMessageProcessor, embeddedProcessor, extent);
+				errorMessageProcessor, embeddedProcessor, extent, reportProperties);
 	}
 
 	@Test
@@ -373,7 +376,8 @@ public class ExtentTestHeirarchyTest {
 				.createNode(com.aventstack.extentreports.gherkin.model.Scenario.class, "Scenario Test", "");
 
 		String location = "stepdefs.Stepdefs.step()";
-
+		
+		when(reportProperties.getDisplayAllHooks()).thenReturn(true);
 		Scenario scenario = mock(Scenario.class);
 		Hook hook = mock(Hook.class, RETURNS_DEEP_STUBS);
 		when(scenario.getBefore()).thenReturn(Arrays.asList(hook));
@@ -397,6 +401,8 @@ public class ExtentTestHeirarchyTest {
 		ExtentTest scenarioExtentTest = featureExtentTest
 				.createNode(com.aventstack.extentreports.gherkin.model.Scenario.class, "Scenario Test", "");
 
+		when(reportProperties.getDisplayAllHooks()).thenReturn(true);
+		
 		Scenario scenario = mock(Scenario.class);
 		Hook hook = mock(Hook.class, RETURNS_DEEP_STUBS);
 		when(scenario.getBefore()).thenReturn(Arrays.asList(hook));

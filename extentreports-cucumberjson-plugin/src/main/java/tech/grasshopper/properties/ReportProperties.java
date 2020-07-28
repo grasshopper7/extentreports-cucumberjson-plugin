@@ -22,7 +22,8 @@ public class ReportProperties {
 
 	private String reportsPropertiesFolder;
 	private String reportsPropertiesFileName;
-
+	private boolean displayAllHooks;
+	
 	private ExtentReportsCucumberLogger logger;
 
 	private static final Properties properties = new Properties();
@@ -135,5 +136,13 @@ public class ReportProperties {
 		return getProperty(DEFAULT_REPORTS_PROPERTIES + key + DEFAULT_REPORTS_PROPERTIES_START).equalsIgnoreCase("true")
 				? true
 				: false;
+	}
+
+	public boolean getDisplayAllHooks() {
+		return displayAllHooks;
+	}
+
+	public void setDisplayAllHooks(String displayAllHooks) {
+		this.displayAllHooks = Boolean.parseBoolean(displayAllHooks);
 	}
 }

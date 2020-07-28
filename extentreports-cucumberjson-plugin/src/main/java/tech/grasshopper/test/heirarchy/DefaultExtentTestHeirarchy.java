@@ -14,6 +14,7 @@ import tech.grasshopper.processor.ErrorMessageProcessor;
 import tech.grasshopper.processor.FeatureProcessor;
 import tech.grasshopper.processor.ScenarioProcessor;
 import tech.grasshopper.processor.StepProcessor;
+import tech.grasshopper.properties.ReportProperties;
 
 @Singleton
 public class DefaultExtentTestHeirarchy extends ExtentTestHeirarchy {
@@ -21,14 +22,14 @@ public class DefaultExtentTestHeirarchy extends ExtentTestHeirarchy {
 	@Inject
 	public DefaultExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
 			StepProcessor stepProcessor, ErrorMessageProcessor errorMessageProcessor,
-			EmbeddedProcessor embeddedProcessor) {
-		super(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor);
+			EmbeddedProcessor embeddedProcessor, ReportProperties reportProperties) {
+		super(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor, reportProperties);
 	}
 	
 	DefaultExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
 			StepProcessor stepProcessor, ErrorMessageProcessor errorMessageProcessor,
-			EmbeddedProcessor embeddedProcessor, ExtentReports extent) {
-		super(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor, extent);
+			EmbeddedProcessor embeddedProcessor, ExtentReports extent, ReportProperties reportProperties) {
+		super(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor, extent, reportProperties);
 	}
 
 	@Override

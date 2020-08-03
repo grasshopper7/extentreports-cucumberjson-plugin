@@ -28,14 +28,15 @@ public class ReporterInitializerTest {
 
 	@Before
 	public void setup() {
-		logger = mock(ExtentReportsCucumberLogger.class);
-		reportProperties = mock(ReportProperties.class);
-		reportInitializer = new ReporterInitializer(reportProperties, logger);
+		this.logger = mock(ExtentReportsCucumberLogger.class);
+		this.reportProperties = mock(ReportProperties.class);
+		reportInitializer = new ReporterInitializer(this.reportProperties, this.logger);
 	}
 
 	@Test
 	public void testReportClassMappingNotAvailable() {
-		when(reportProperties.retrieveReportIdToClassNameMappings()).thenReturn(new HashMap<>());
+		when(reportProperties.retrieveReportIdToClassNameMappings()).thenReturn(new HashMap<String, String>());
+		reportInitializer = new ReporterInitializer(reportProperties, logger);
 		Exception exception = assertThrows(
 				"The exception thrown should be an instance of ExtentReportsCucumberPluginException.",
 				ExtentReportsCucumberPluginException.class, () -> {

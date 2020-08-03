@@ -28,7 +28,6 @@ public class ReporterInitializer {
 	@Inject
 	public ReporterInitializer(ReportProperties reportProperties, ExtentReportsCucumberLogger logger) {
 		this.reportKeyToInstance = new HashMap<>();
-		this.reportProperties = reportProperties;
 		this.logger = logger;
 	}
 

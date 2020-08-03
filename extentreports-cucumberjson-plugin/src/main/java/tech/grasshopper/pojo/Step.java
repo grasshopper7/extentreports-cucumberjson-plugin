@@ -1,6 +1,7 @@
 package tech.grasshopper.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -28,6 +29,8 @@ public class Step {
     private int testId;
     private String dataTableMarkup;
     private String docStringMarkup;
+    private Date startTime;
+    private Date endTime;
     
     public List<Hook> getBeforeAfterHooks() {
     	List<Hook> hooks = new ArrayList<>();

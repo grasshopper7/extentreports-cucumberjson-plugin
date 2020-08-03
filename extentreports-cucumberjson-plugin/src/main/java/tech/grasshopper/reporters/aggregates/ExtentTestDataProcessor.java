@@ -1,5 +1,7 @@
 package tech.grasshopper.reporters.aggregates;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -14,24 +16,19 @@ import com.aventstack.extentreports.model.Test;
 import lombok.Data;
 import tech.grasshopper.pojo.Feature;
 import tech.grasshopper.pojo.Hook;
-import tech.grasshopper.pojo.Result;
 import tech.grasshopper.pojo.Scenario;
 import tech.grasshopper.pojo.Step;
 
-import static java.util.stream.Collectors.toList;
-
-public class DurationCalculator {
+public class ExtentTestDataProcessor {
 
 	private List<Feature> features;
 	private List<Test> extentTestHeirarchy;
 	private List<Scenario> scenarios;
-	private Date updatedDate;
 
-	public DurationCalculator(List<Feature> features, List<Test> extentTestHeirarchy) {
+	public ExtentTestDataProcessor(List<Feature> features, List<Test> extentTestHeirarchy) {
 		this.features = features;
 		this.extentTestHeirarchy = extentTestHeirarchy;
-		scenarios = features.stream().flatMap(f -> f.getElements().stream()).collect(toList());
-		updatedDate = new Date();
+		this.scenarios = features.stream().flatMap(f -> f.getElements().stream()).collect(toList());
 	}
 
 	public ReporterDuration calculateReportDuration() {
@@ -51,7 +48,7 @@ public class DurationCalculator {
 		private Date endTime;
 	}
 
-	public void updateExtentTestTimeData() {
+	public void updateExtentTestData() {
 		List<Test> featureChildrenTests = extentTestHeirarchy.stream()
 				.flatMap(e -> e.getNodeContext().getAll().stream()).collect(toList());
 		List<Test> scenarioTests = new ArrayList<>();
@@ -59,14 +56,14 @@ public class DurationCalculator {
 		for (Test test : featureChildrenTests) {
 			if (test.getBehaviorDrivenTypeName().equalsIgnoreCase("Scenario Outline")) {
 				scenarioTests.addAll(test.getNodeContext().getAll());
-				updateScenarioOutlineExtentTestStartEndTimes(test);
+				updateScenarioOutlineExtentTestData(test);
 			} else
 				scenarioTests.add(test);
 		}
-		updateScenarioExtentTestStartEndTimes(scenarioTests);
+		updateScenarioExtentTestData(scenarioTests);
 	}
 
-	protected void updateScenarioOutlineExtentTestStartEndTimes(Test scenarioOutlineExtentTest) {
+	protected void updateScenarioOutlineExtentTestData(Test scenarioOutlineExtentTest) {
 		List<Integer> childTestIds = scenarioOutlineExtentTest.getNodeContext().getAll().stream().map(t -> t.getId())
 				.collect(toList());
 		List<Scenario> childScenarios = scenarios.stream().filter(s -> childTestIds.contains(s.getTestId()))
@@ -85,7 +82,7 @@ public class DurationCalculator {
 		scenarioOutlineExtentTest.setEndTime(endTimes.get(0));
 	}
 
-	protected void updateScenarioExtentTestStartEndTimes(List<Test> scenarioExtentTests) {
+	protected void updateScenarioExtentTestData(List<Test> scenarioExtentTests) {
 		Map<Integer, Scenario> idToScenarioMap = scenarios.stream()
 				.collect(Collectors.toMap(Scenario::getTestId, Function.identity()));
 
@@ -97,45 +94,40 @@ public class DurationCalculator {
 
 		List<Test> stepAndHooksExtentTests = scenarioExtentTests.stream()
 				.flatMap(e -> e.getNodeContext().getAll().stream()).collect(toList());
-		updateStepAndHookExtentTestStartEndTimesAndLogTimestamp(stepAndHooksExtentTests);
+		updateStepAndHookExtentTestAndLogData(stepAndHooksExtentTests);
 	}
 
-	private void updateStepAndHookExtentTestStartEndTimesAndLogTimestamp(List<Test> stepAndHooksExtentTests) {
+	private void updateStepAndHookExtentTestAndLogData(List<Test> stepAndHooksExtentTests) {
 		Map<Integer, Test> idToTestMap = stepAndHooksExtentTests.stream()
 				.collect(Collectors.toMap(Test::getId, Function.identity()));
 
 		scenarios.forEach(s -> {
-			updatedDate = s.getStartTime();
-			updateHookExtentTestStartEndTimesAndLogTimestamp(s.getBefore(), idToTestMap);
+			updateHookExtentTestAndLogData(s.getBefore(), idToTestMap);
 			for (Step step : s.getSteps()) {
-				updateHookExtentTestStartEndTimesAndLogTimestamp(step.getBefore(), idToTestMap);
-				updateStepExtentTestStartEndTimesAndLogTimestamp(step, idToTestMap);
-				updateHookExtentTestStartEndTimesAndLogTimestamp(step.getAfter(), idToTestMap);
+				updateHookExtentTestAndLogData(step.getBefore(), idToTestMap);
+				updateStepExtentTestAndLogData(step, idToTestMap);
+				updateHookExtentTestAndLogData(step.getAfter(), idToTestMap);
 			}
-			updateHookExtentTestStartEndTimesAndLogTimestamp(s.getAfter(), idToTestMap);
+			updateHookExtentTestAndLogData(s.getAfter(), idToTestMap);
 		});
 	}
 
-	private void updateHookExtentTestStartEndTimesAndLogTimestamp(List<Hook> hooks, Map<Integer, Test> idToTestMap) {
+	private void updateHookExtentTestAndLogData(List<Hook> hooks, Map<Integer, Test> idToTestMap) {
 		for (Hook hook : hooks) {
 			Test hookTest = idToTestMap.get(hook.getTestId());
-			updateTestStartEndTimesAndLogTimestamp(hookTest, hook.getResult());
+			updateTestStartEndTimesAndLogTimestamp(hookTest, hook.getStartTime(), hook.getEndTime());
 		}
 	}
 
-	private void updateStepExtentTestStartEndTimesAndLogTimestamp(Step step, Map<Integer, Test> idToTestMap) {
+	private void updateStepExtentTestAndLogData(Step step, Map<Integer, Test> idToTestMap) {
 		Test stepTest = idToTestMap.get(step.getTestId());
-		updateTestStartEndTimesAndLogTimestamp(stepTest, step.getResult());
+		updateTestStartEndTimesAndLogTimestamp(stepTest, step.getStartTime(), step.getEndTime());
 	}
 
-	private void updateTestStartEndTimesAndLogTimestamp(Test test, Result result) {
-		test.setStartTime(updatedDate);
-		Date logTimeStamp = updatedDate;
-
+	private void updateTestStartEndTimesAndLogTimestamp(Test test, Date startTime, Date endTime) {
+		test.setStartTime(startTime);
 		List<Log> stepLogs = test.getLogContext().getAll();
-		stepLogs.forEach(l -> l.setTimestamp(logTimeStamp));
-
-		updatedDate = Date.from(updatedDate.toInstant().plusNanos(result.getDuration()));
-		test.setEndTime(updatedDate);
+		stepLogs.forEach(l -> l.setTimestamp(startTime));
+		test.setEndTime(endTime);
 	}
 }

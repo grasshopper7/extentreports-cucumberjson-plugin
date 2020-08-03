@@ -1,9 +1,11 @@
 package tech.grasshopper.test.heirarchy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -49,14 +51,15 @@ public abstract class ExtentTestHeirarchy {
 		this.errorMessageProcessor = errorMessageProcessor;
 		this.embeddedProcessor = embeddedProcessor;
 		this.reportProperties = reportProperties;
-		
+
 	}
-	
+
 	protected ExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
 			StepProcessor stepProcessor, ErrorMessageProcessor errorMessageProcessor,
 			EmbeddedProcessor embeddedProcessor, ExtentReports extent, ReportProperties reportProperties) {
-		this(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor, reportProperties);
-		this.extent = extent;		
+		this(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor,
+				reportProperties);
+		this.extent = extent;
 	}
 
 	public abstract void createTestHeirarchy(List<Feature> features, ExtentReports extent);
@@ -108,24 +111,35 @@ public abstract class ExtentTestHeirarchy {
 		String[] splits = id.split(";");
 		if (splits.length != 4)
 			return id;
-		return splits[1].replace('-', ' ');
+		
+		String[] name = splits[1].split("-");
+		return Arrays.stream(name).map(t -> {
+			if(t.length() == 1)
+				return t.toUpperCase();
+			return t.substring(0, 1).toUpperCase() + t.substring(1);
+		}).collect(Collectors.joining(" "));
 	}
 
 	public ExtentTest createHookExtentNode(ExtentTest parentExtentTest, Hook hook) {
 		ExtentTest hookExtentTest = parentExtentTest
 				.createNode(com.aventstack.extentreports.gherkin.model.Asterisk.class, hook.getMatch().getLocation());
-		
+
 		hook.setTestId(hookExtentTest.getModel().getId());
 		hook.getOutput().forEach(o -> hookExtentTest.info(o));
 		updateTestEmbeddings(hookExtentTest, hook.getEmbeddings());
-		updateTestLogStatus(hookExtentTest, hook.getResult());
+		// updateTestLogStatus(hookExtentTest, hook.getResult());
+		Test test = hookExtentTest.getModel();
+		test.setStartTime(hook.getStartTime());
+		test.setEndTime(hook.getEndTime());
 		return hookExtentTest;
 	}
 
 	public List<ExtentTest> createHookExtentNode(ExtentTest parentExtentTest, List<Hook> hooks) {
 		List<ExtentTest> hookTests = new ArrayList<>();
-		if(!reportProperties.getDisplayAllHooks())
+
+		if (!reportProperties.getDisplayAllHooks())
 			hooks.removeIf(h -> h.getEmbeddings().isEmpty() && h.getOutput().isEmpty());
+
 		hooks.forEach(h -> hookTests.add(createHookExtentNode(parentExtentTest, h)));
 		return hookTests;
 	}
@@ -153,11 +167,16 @@ public abstract class ExtentTestHeirarchy {
 			// Default set to And
 			keyword = new GherkinKeyword("And");
 			keyword = new GherkinKeyword(step.getKeyword().trim());
-		} catch (ClassNotFoundException e) {	}
+		} catch (ClassNotFoundException e) {
+		}
 
 		stepExtentTest = parentExtentTest.createNode(keyword, step.getKeyword() + step.getName(),
 				step.getMatch().getLocation());
 		step.setTestId(stepExtentTest.getModel().getId());
+
+		Test test = stepExtentTest.getModel();
+		test.setStartTime(step.getStartTime());
+		test.setEndTime(step.getEndTime());
 
 		if (step.getRows().size() > 0)
 			stepExtentTest.info(step.getDataTableMarkup());

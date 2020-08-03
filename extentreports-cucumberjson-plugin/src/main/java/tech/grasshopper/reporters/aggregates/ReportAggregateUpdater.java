@@ -6,7 +6,7 @@ import com.aventstack.extentreports.ReportAggregates;
 import com.aventstack.extentreports.reporter.AbstractReporter;
 
 import tech.grasshopper.pojo.Feature;
-import tech.grasshopper.reporters.aggregates.DurationCalculator.ReporterDuration;
+import tech.grasshopper.reporters.aggregates.ExtentTestDataProcessor.ReporterDuration;
 
 public class ReportAggregateUpdater extends AbstractReporter {
 
@@ -20,13 +20,13 @@ public class ReportAggregateUpdater extends AbstractReporter {
 
 	@Override
 	public synchronized void flush(ReportAggregates reportAggregates) {		
-		DurationCalculator timestampCalculator = new DurationCalculator(features, reportAggregates.getTestList());
+		ExtentTestDataProcessor testDataProcessor = new ExtentTestDataProcessor(features, reportAggregates.getTestList());
 
-		durationData = timestampCalculator.calculateReportDuration();
+		durationData = testDataProcessor.calculateReportDuration();
 		reportAggregates.setStartTime(durationData.getStartTime());
 		reportAggregates.setEndTime(durationData.getEndTime());
 
-		timestampCalculator.updateExtentTestTimeData();
+		testDataProcessor.updateExtentTestData();
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package tech.grasshopper.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -16,4 +17,6 @@ public class Hook {
     private Match match;
     
     private int testId;
+    private Date startTime;
+    private Date endTime;
 }

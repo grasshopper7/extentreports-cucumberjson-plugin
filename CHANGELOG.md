@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.5.0 (2020-08-03)
+
+* Display all hooks option [Issue 1](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/1)
+* Fix step and hook duration times [Issue 3](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/3)
+
 ## 1.4.0 (2020-07-23)
 
 * Added JSON Formatter report

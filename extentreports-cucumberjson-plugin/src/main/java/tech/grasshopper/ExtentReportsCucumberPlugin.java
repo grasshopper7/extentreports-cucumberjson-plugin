@@ -50,10 +50,12 @@ public class ExtentReportsCucumberPlugin extends AbstractMojo {
 
 	public void execute() {
 		try {
-			reportProperties.setDisplayAllHooks(displayAllHooks);
 			logger.initializeLogger(getLog());
 			logger.info("STARTED EXTENT REPORT GENERATION PLUGIN");
 
+			reportProperties.setDisplayAllHooks(displayAllHooks);
+			reportProperties.loadPropertyFiles(extentPropertiesDirectory);
+			
 			List<Path> jsonFilePaths = jsonPathCollector.retrieveFilePaths(cucumberJsonReportDirectory);
 			List<Feature> features = jsonFileConverter.retrieveFeaturesFromReport(jsonFilePaths);
 

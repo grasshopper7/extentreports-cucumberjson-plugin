@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.5.1 (2020-08-04)
+* Custom screenshot folder available for EmbeddedProcessor [Issue 4](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/4)
+
 ## 1.5.0 (2020-08-03)
 
 * Display all hooks option [Issue 1](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/1)

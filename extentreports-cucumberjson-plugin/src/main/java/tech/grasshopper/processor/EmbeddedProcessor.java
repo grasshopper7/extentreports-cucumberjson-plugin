@@ -85,7 +85,7 @@ public class EmbeddedProcessor {
 				// No need anymore
 				embedded.setData("");
 			}
-			embedded.setFilePath(path.toString());
+			embedded.setFilePath((Paths.get(reportProperties.getReportRelativeScreenshotLocation(), path.getFileName().toString())).toString());
 		} else {
 			logger.warn("Mime type '" + mimeType + "' not supported.");
 		}
@@ -100,12 +100,9 @@ public class EmbeddedProcessor {
 		// Create directory if not existing
 		if (!dir.exists())
 			dir.mkdirs();
-
-		File file = new File(embedDirPath + "/" + fileName);
-		Path path = Paths.get(file.getAbsolutePath());
-		// Delete existing embedded stuff
-		if (file.exists())
-			file.delete();
+		
+		Path path = Paths.get(embedDirPath, fileName.toString());
+		//return path.toAbsolutePath();
 		return path;
 	}
 }

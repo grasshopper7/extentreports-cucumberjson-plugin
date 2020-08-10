@@ -33,9 +33,9 @@ public class ReportPropertiesTest {
 		
 		assertEquals("Value of 'class' for 'ReporterOne' is wrong.", "com.reporter.ReporterOne", reportProperties.getReportClassNameProperty("reporterone"));
 		assertEquals("Value of 'start' for 'ReporterOne' is wrong.", "true", reportProperties.getReportStartProperty("reporterone"));
-		assertEquals("Value of 'out' for 'ReporterOne' is wrong.", "test-output/ReporterOne", reportProperties.getReportOutProperty("reporterone"));
+		assertEquals("Value of 'out' for 'ReporterOne' is wrong.", Paths.get("test-output","ReporterOne").toString(), reportProperties.getReportOutProperty("reporterone"));
 		assertEquals("Value of 'config' for 'ReporterOne' is wrong.", "src/test/resources/extent-config.xml", reportProperties.getReportConfigProperty("reporterone"));
-		assertEquals("Value of screenshot directory is wrong.", "test-output/", reportProperties.getReportScreenshotLocation());
+		assertEquals("Value of screenshot directory is wrong.", "test-output", reportProperties.getReportScreenshotLocation());
 	}
 	
 	@Test
@@ -54,7 +54,7 @@ public class ReportPropertiesTest {
 		verify(logger, times(1)).warn("Skipping reading project extent properties as file not found at location - " + projectProperty.toAbsolutePath().toString()  + "/" + "invalid.properties" + ".");
 		assertEquals("Value of 'class' for 'ReporterOne' is wrong.", "com.reporter.ReporterOne", reportProperties.getReportClassNameProperty("reporterone"));
 		assertEquals("Value of 'start' for 'ReporterOne' is wrong.", "true", reportProperties.getReportStartProperty("reporterone"));
-		assertEquals("Value of 'out' for 'ReporterOne' is wrong.", "test-output/ReporterOne", reportProperties.getReportOutProperty("reporterone"));
+		assertEquals("Value of 'out' for 'ReporterOne' is wrong.", Paths.get("test-output","ReporterOne").toString(), reportProperties.getReportOutProperty("reporterone"));
 		assertEquals("Value of 'config' for 'ReporterOne' is wrong.", "", reportProperties.getReportConfigProperty("reporterone"));
 	}
 	

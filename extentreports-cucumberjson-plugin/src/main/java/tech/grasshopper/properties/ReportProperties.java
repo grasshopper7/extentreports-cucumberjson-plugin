@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -35,7 +38,12 @@ public class ReportProperties {
 	public static final String DEFAULT_REPORTS_PROPERTIES_CONFIG = ".config";
 	public static final String DEFAULT_REPORTS_PROPERTIES_OUT = ".out";
 	public static final String DEFAULT_REPORTS_SCREENSHOTS_DIRECTORY = "screenshot.dir";
+	public static final String DEFAULT_REPORTS_SCREENSHOTS_DIR_RELATIVE_PATH = "screenshot.rel.path";
+	public static final String REPORTS_BASEFOLDER_NAME = "basefolder.name";
+	public static final String REPORTS_BASEFOLDER_DATETIMEPATTERN = "basefolder.datetimepattern";
 	private static final String DEFAULT_SCREENSHOTS_LOCATION = "test-output/";
+	private static final String DEFAULT_SCREENSHOTS_DIR_PATH = "../";
+	private static final LocalDateTime FOLDER_TIMESTAMP = LocalDateTime.now();
 
 	@Inject
 	public ReportProperties(ExtentReportsCucumberLogger logger) {
@@ -122,14 +130,30 @@ public class ReportProperties {
 	}
 
 	public String getReportOutProperty(String key) {
-		return getProperty(DEFAULT_REPORTS_PROPERTIES + key + DEFAULT_REPORTS_PROPERTIES_OUT);
+		return Paths.get(getBaseFolderName(), getProperty(DEFAULT_REPORTS_PROPERTIES + key + DEFAULT_REPORTS_PROPERTIES_OUT)).toString();
 	}
 
 	public String getReportScreenshotLocation() {
 		String screenshotDirectory = DEFAULT_SCREENSHOTS_LOCATION;
 		if (!getProperty(DEFAULT_REPORTS_SCREENSHOTS_DIRECTORY).isEmpty())
 			screenshotDirectory = getProperty(DEFAULT_REPORTS_SCREENSHOTS_DIRECTORY);
-		return screenshotDirectory;
+		return Paths.get(getBaseFolderName(), screenshotDirectory).toString();
+	}
+	
+	public String getReportRelativeScreenshotLocation() {
+		String reportPathToScreenshotDir = DEFAULT_SCREENSHOTS_DIR_PATH;
+		if(!getProperty(DEFAULT_REPORTS_SCREENSHOTS_DIR_RELATIVE_PATH).isEmpty())
+			reportPathToScreenshotDir = getProperty(DEFAULT_REPORTS_SCREENSHOTS_DIR_RELATIVE_PATH);
+		return reportPathToScreenshotDir;
+	}
+	
+	private String getBaseFolderName() {
+		String folderpattern = "";
+		if (!getProperty(REPORTS_BASEFOLDER_NAME).isEmpty() && !getProperty(REPORTS_BASEFOLDER_DATETIMEPATTERN).isEmpty()) {
+			DateTimeFormatter folderSuffix = DateTimeFormatter.ofPattern(getProperty(REPORTS_BASEFOLDER_DATETIMEPATTERN));
+			folderpattern = getProperty(REPORTS_BASEFOLDER_NAME) + " " +folderSuffix.format(FOLDER_TIMESTAMP);
+		}
+		return folderpattern;
 	}
 
 	public boolean checkReportRequired(String key) {

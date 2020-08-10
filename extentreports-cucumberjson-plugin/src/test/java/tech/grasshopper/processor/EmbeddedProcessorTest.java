@@ -1,7 +1,6 @@
 package tech.grasshopper.processor;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
@@ -10,8 +9,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,15 +94,10 @@ public class EmbeddedProcessorTest {
 		Embedded embed = new Embedded();
 		embed.setData(Base64.encodeFromFile("src/test/resources/tech/grasshopper/processor/image.png"));
 		embed.setMimeType("image/png");
-		/*
-		 * List<Embedded> embeddings = new ArrayList<>(); embeddings.add(embed);
-		 * embeddedProcessor.processEmbeddings(embeddings);
-		 */
 		embeddedProcessor.processEmbedding(embed);
 
 		assertEquals("Embedded object 'data' variable value should be empty.", "", embed.getData());
-		File copiedFile = new File(embed.getFilePath());
-		assertTrue("Attachment file not created in location.", copiedFile.exists());
+		assertEquals("Embedded file is not processed.", 1, Files.list(Paths.get(tempFolder)).count());
 	}
 
 	@Test

@@ -1,9 +1,6 @@
 package tech.grasshopper.processor;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -37,15 +34,18 @@ public class EmbeddedProcessorTest {
 	private ReportProperties reportProperties;
 	private ExtentReportsCucumberLogger logger;
 	private List<Embedded> embeddings;
-	private ExtentTest test;
+	private ExtentTest extentTest;
+	private com.aventstack.extentreports.model.Test test;
 
 	@Before
 	public void setup() {
 		reportProperties = mock(ReportProperties.class);
 		logger = mock(ExtentReportsCucumberLogger.class);
 		embeddings = new ArrayList<>();
-		test = mock(ExtentTest.class, org.mockito.Answers.RETURNS_DEEP_STUBS);
-		when(test.getModel().getName()).thenReturn("TEST STEP NAME");
+		extentTest = mock(ExtentTest.class);
+		test = new com.aventstack.extentreports.model.Test();
+		test.setName("TEST STEP NAME");
+		when(extentTest.getModel()).thenReturn(test);
 
 		embeddedProcessor = new EmbeddedProcessor(reportProperties, logger);
 	}
@@ -56,7 +56,7 @@ public class EmbeddedProcessorTest {
 		when(embed.getFilePath()).thenReturn(testFolder.getRoot().getAbsolutePath() + "/image.png");
 		embeddings.add(embed);
 
-		embeddedProcessor.updateExtentTestWithEmbedding(test, embeddings);
+		embeddedProcessor.updateExtentTestWithEmbedding(extentTest, embeddings);
 	}
 
 	@Test
@@ -64,26 +64,9 @@ public class EmbeddedProcessorTest {
 		Embedded embed = mock(Embedded.class);
 		embeddings.add(embed);
 
-		embeddedProcessor.updateExtentTestWithEmbedding(test, embeddings);
+		embeddedProcessor.updateExtentTestWithEmbedding(extentTest, embeddings);
 		verify(logger, times(1))
 				.warn("Skipping adding embedded file as filepath is empty for step - 'TEST STEP NAME'.");
-	}
-
-	@Test
-	public void testAddAttachmentsToExtentTestAttachmentException() {
-		Embedded embed = mock(Embedded.class);
-		when(embed.getFilePath()).thenReturn(testFolder.getRoot().getAbsolutePath() + "/image.png");
-		embeddings.add(embed);
-
-		try {
-			doThrow(new IOException("failure")).when(test).addScreenCaptureFromPath(anyString());
-		} catch (IOException e) {
-			fail("Error in creating mock to throw IOException");
-		}
-
-		embeddedProcessor.updateExtentTestWithEmbedding(test, embeddings);
-		verify(logger, times(1))
-				.warn("Skipping adding embedded file for step - 'TEST STEP NAME' as error in processing.");
 	}
 
 	@Test
@@ -110,7 +93,6 @@ public class EmbeddedProcessorTest {
 		 */
 		embeddedProcessor.processEmbedding(embed);
 
-		verify(logger, times(1))
-				.warn("Mime type '" + embed.getMimeType() + "' not supported.");
+		verify(logger, times(1)).warn("Mime type '" + embed.getMimeType() + "' not supported.");
 	}
 }

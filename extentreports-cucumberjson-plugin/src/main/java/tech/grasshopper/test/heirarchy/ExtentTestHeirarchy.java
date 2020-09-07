@@ -137,7 +137,7 @@ public abstract class ExtentTestHeirarchy {
 	public List<ExtentTest> createHookExtentNode(ExtentTest parentExtentTest, List<Hook> hooks) {
 		List<ExtentTest> hookTests = new ArrayList<>();
 
-		if (!reportProperties.getDisplayAllHooks())
+		if (!reportProperties.isDisplayAllHooks())
 			hooks.removeIf(h -> h.getEmbeddings().isEmpty() && h.getOutput().isEmpty());
 
 		hooks.forEach(h -> hookTests.add(createHookExtentNode(parentExtentTest, h)));
@@ -203,6 +203,8 @@ public abstract class ExtentTestHeirarchy {
 			test.fail(throwInstance);
 		} else if (stepStatus.equalsIgnoreCase("passed"))
 			test.pass("");
+		else if (stepStatus.equalsIgnoreCase("undefined") && reportProperties.isStrictCucumber6Behavior())
+			test.fail("");
 		else
 			test.skip("");
 	}

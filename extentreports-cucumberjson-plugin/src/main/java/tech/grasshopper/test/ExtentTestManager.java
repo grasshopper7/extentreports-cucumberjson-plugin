@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporter.ConfigurableReporter;
+import com.aventstack.extentreports.observer.ExtentObserver;
 
 import tech.grasshopper.pojo.Feature;
 import tech.grasshopper.reporters.ReporterInitializer;
@@ -28,14 +28,12 @@ public class ExtentTestManager {
 	}
 
 	public void initialize(List<Feature> features) {
-		Map<String, ConfigurableReporter> reporters = reportInitializer.getReportKeyToInstance();
+		Map<String, ExtentObserver<?>> reporters = reportInitializer.getReportKeyToInstance();
 		extent.setReportUsesManualConfiguration(true);
 		testHeirarchy.createTestHeirarchy(features, extent);
-
-		extent.attachReporter(reportInitializer.instantiatReportAggregateUpdater(features));
 		
 		for (String key : reporters.keySet()) {
-			ConfigurableReporter reporter = reporters.get(key);
+			ExtentObserver<?> reporter = reporters.get(key);
 			extent.attachReporter(reporter);
 		}	
 	}

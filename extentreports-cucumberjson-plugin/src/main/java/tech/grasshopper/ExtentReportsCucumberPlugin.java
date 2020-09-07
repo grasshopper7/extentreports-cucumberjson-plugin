@@ -28,6 +28,10 @@ public class ExtentReportsCucumberPlugin extends AbstractMojo {
 	
 	@Parameter(property = "extentreport.displayAllHooks", defaultValue = "false")
 	private String displayAllHooks;
+	
+	@Parameter(property = "strictCucumber6Behavior", defaultValue = "true")
+	private String strictCucumber6Behavior;
+	
 
 	private JsonPathCollector jsonPathCollector;
 	private JsonFileConverter jsonFileConverter;
@@ -55,6 +59,7 @@ public class ExtentReportsCucumberPlugin extends AbstractMojo {
 
 			reportProperties.setDisplayAllHooks(displayAllHooks);
 			reportProperties.loadPropertyFiles(extentPropertiesDirectory);
+			reportProperties.setStrictCucumber6Behavior(strictCucumber6Behavior);
 			
 			List<Path> jsonFilePaths = jsonPathCollector.retrieveFilePaths(cucumberJsonReportDirectory);
 			List<Feature> features = jsonFileConverter.retrieveFeaturesFromReport(jsonFilePaths);

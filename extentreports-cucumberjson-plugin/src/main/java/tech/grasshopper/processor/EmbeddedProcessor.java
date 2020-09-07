@@ -60,7 +60,7 @@ public class EmbeddedProcessor {
 			try {
 				test.info(name, MediaEntityBuilder.createScreenCaptureFromPath(filePath).build());
 				// Embedding workaround for html report.
-				test.addScreenCaptureFromPath(filePath);
+				// test.addScreenCaptureFromPath(filePath);
 			} catch (Exception e) {
 				logger.warn("Skipping adding embedded file for step - '" + test.getModel().getName()
 						+ "' as error in processing.");
@@ -85,7 +85,9 @@ public class EmbeddedProcessor {
 				// No need anymore
 				embedded.setData("");
 			}
-			embedded.setFilePath((Paths.get(reportProperties.getReportRelativeScreenshotLocation(), path.getFileName().toString())).toString());
+			embedded.setFilePath(
+					(Paths.get(reportProperties.getReportRelativeScreenshotLocation(), path.getFileName().toString()))
+							.toString());
 		} else {
 			logger.warn("Mime type '" + mimeType + "' not supported.");
 		}
@@ -100,9 +102,8 @@ public class EmbeddedProcessor {
 		// Create directory if not existing
 		if (!dir.exists())
 			dir.mkdirs();
-		
+
 		Path path = Paths.get(embedDirPath, fileName.toString());
-		//return path.toAbsolutePath();
 		return path;
 	}
 }

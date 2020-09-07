@@ -26,6 +26,7 @@ public class ReportProperties {
 	private String reportsPropertiesFolder;
 	private String reportsPropertiesFileName;
 	private boolean displayAllHooks;
+	private boolean strictCucumber6Behavior;
 	
 	private ExtentReportsCucumberLogger logger;
 
@@ -162,11 +163,19 @@ public class ReportProperties {
 				: false;
 	}
 
-	public boolean getDisplayAllHooks() {
+	public boolean isDisplayAllHooks() {
 		return displayAllHooks;
 	}
 
 	public void setDisplayAllHooks(String displayAllHooks) {
 		this.displayAllHooks = Boolean.parseBoolean(displayAllHooks);
+	}
+
+	public boolean isStrictCucumber6Behavior() {
+		return strictCucumber6Behavior;
+	}
+
+	public void setStrictCucumber6Behavior(String strictCucumber6Behavior) {
+		this.strictCucumber6Behavior = Boolean.parseBoolean(strictCucumber6Behavior);
 	}
 }

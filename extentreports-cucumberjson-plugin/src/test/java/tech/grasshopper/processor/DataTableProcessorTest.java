@@ -30,7 +30,7 @@ public class DataTableProcessorTest {
 		data.add(2, Arrays.asList(secondRow));
 
 		assertEquals("DataTable markup does not match.",
-				"<table class='runtime-table table-striped table'><tr><td>First Column</td><td>Second Column</td><td>Third Column</td></tr>"
+				"<table class='markup-table table '><tr><td>First Column</td><td>Second Column</td><td>Third Column</td></tr>"
 						+ "<tr><td>11</td><td>12</td><td>13</td></tr><tr><td>21</td><td>22</td><td>23</td></tr></table>",
 				dataTableProcessor.processTable(data));
 	}

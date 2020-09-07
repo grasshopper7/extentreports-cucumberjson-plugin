@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.0.0 (2020-09-07)
+* Upgrade extentreports to version 5 [Issue 6](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/6)
+* Add pdf dashboard reporter to plugin [Issue 7](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/7)
+* Add cucumber 6 strict behavior [Issue 5](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/5)
+
 ## 1.6.0 (2020-08-10)
 * Add date and time to report name [Issue 2](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/2)
 

@@ -26,10 +26,10 @@ The **plugin version 2.0.0** uses **ExtentReport version 5** which deprecates ma
 </plugin>
 ```
 
-To use ExtentReports version 4 use the plugin version 1.6.0 in the POM.
+To use ExtentReports version 4 use the plugin version 1.6.0 in the POM. Refer to **Plugin Configuration** section in the [article](https://grasshopper.tech/2114/). 
 
 
-The Cucumber Json report is created with the below **setting in the Cucumber runner**.
+The Cucumber Json report is created with the below **setting in the Cucumber runner**. Refer to **Cucumber JSON Formatter Setup** section in the [article](https://grasshopper.tech/2114/).
 ```
 @CucumberOptions(plugin = { "json:target/json-report/cucumber.json"})
 ```
@@ -42,5 +42,7 @@ The Cucumber Json report is created with the below **setting in the Cucumber run
 | **displayAllHooks**             | optional  | false   | flag for all hooks are to be displayed          |                       |
 | **strictCucumber6Behavior**     | optional  | true    | flag to set undefined step to failed            | Available after 2.0.0 |
 
-**Report Settings** - The Spark reporter is enabled by default. The Json and Pdf reporter have to be enabled in the project extent.properties file.
+Refer to **Plugin Configuration** section in the [article](https://grasshopper.tech/2114/).
+
+**Report Settings** - The Spark reporter is enabled by default. The Json and Pdf reporter have to be enabled in the project extent.properties file by setting the report start property to true. Refer to **ExtentReport Settings** section in the [article](https://grasshopper.tech/2114/).
 

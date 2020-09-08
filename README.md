@@ -44,5 +44,5 @@ The Cucumber Json report is created with the below **setting in the Cucumber run
 
 Refer to **Plugin Configuration** section in the [article](https://grasshopper.tech/2114/).
 
-**Report Settings** - The Spark reporter is enabled by default. The Json and Pdf reporter have to be enabled in the project extent.properties file by setting the report start property to true. Refer to **ExtentReport Settings** section in the [article](https://grasshopper.tech/2114/).
+**Report Settings** - The Spark and Json reporter is enabled by default. The Pdf reporter have to be enabled in the project extent.properties file by setting the report start property to true. Refer to **ExtentReport Settings** section in the [article](https://grasshopper.tech/2114/).
 

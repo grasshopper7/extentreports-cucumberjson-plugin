@@ -36,12 +36,12 @@ The Cucumber Json report is created with the below **setting in the Cucumber run
 
 **Plugin Configuration** - The **cucumberJsonReportDirectory** property is **mandatory** and defines the directory path of the JSON report created by the runner. The **extentPropertiesDirectory** property is **optional** and defines the directory path of the project extent.properties file. If this property is not defined, then the default extent.properties location is used. The **displayAllHooks** property is **optional** and determines if all hooks are to be displayed in the report. The default value is false and only include hooks which include an attachment or write a message in the report. The **strictCucumber6Behavior** property is **optional** and sets step to failed when the step definition is missing. The default value is true. This last setting is only required in 2.0.0 version onwards.
 
-| Property                    | Type      | Cool  |
-| ----------------------------|:---------:| -----:|
-| cucumberJsonReportDirectory | mandatory | $1600 |
-| cextentPropertiesDirectory  | optional  |   $12 |
-| displayAllHooks             | optional  |    $1 |
-| strictCucumber6Behavior     | optional  |    $1 |
+| Property                    | Type      | Default |
+| ----------------------------|:---------:| -------:|
+| cucumberJsonReportDirectory | mandatory |         |
+| cextentPropertiesDirectory  | optional  |         |
+| displayAllHooks             | optional  | false   |
+| strictCucumber6Behavior     | optional  | true    |
 
 **Report Settings** - The Spark reporter is enabled by default. The Json and Pdf reporter have to be enabled in the project extent.properties file.
 

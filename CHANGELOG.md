@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.1.0 (2020-10-20)
+* Handling of hooks and result calculation [Issue 8](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/8)
+* Error if background present for multiple scenario in feature file [Issue 9](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/9)
+
 ## 2.0.0 (2020-09-07)
 * Upgrade extentreports to version 5 [Issue 6](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/6)
 * Add pdf dashboard reporter to plugin [Issue 7](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/7)

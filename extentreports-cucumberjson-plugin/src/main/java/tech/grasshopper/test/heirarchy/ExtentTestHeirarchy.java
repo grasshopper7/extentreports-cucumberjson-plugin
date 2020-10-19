@@ -127,7 +127,7 @@ public abstract class ExtentTestHeirarchy {
 		hook.setTestId(hookExtentTest.getModel().getId());
 		hook.getOutput().forEach(o -> hookExtentTest.info(o));
 		updateTestEmbeddings(hookExtentTest, hook.getEmbeddings());
-		// updateTestLogStatus(hookExtentTest, hook.getResult());
+		updateTestLogStatus(hookExtentTest, hook.getResult());
 		Test test = hookExtentTest.getModel();
 		test.setStartTime(hook.getStartTime());
 		test.setEndTime(hook.getEndTime());

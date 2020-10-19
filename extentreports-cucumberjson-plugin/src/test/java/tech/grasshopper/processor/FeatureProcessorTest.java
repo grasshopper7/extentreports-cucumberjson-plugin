@@ -21,7 +21,7 @@ public class FeatureProcessorTest {
 	public void testBackgroundStepProcessing() {
 		Feature feature = (new FeatureBuilder())
 				.addScenario().setScenarioKeyword("background").addStep()
-				.addScenario().addStep()
+				.addScenario().setScenarioKeyword("scenario").addStep()
 				.build();
 		
 		featureProcessor.updateScenarioWithBackgroundSteps(feature);

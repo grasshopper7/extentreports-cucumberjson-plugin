@@ -36,24 +36,23 @@ public class JsonFileConverter {
 	}
 
 	public List<Feature> retrieveFeaturesFromReport(List<Path> jsonFilePaths) {
-		Gson gson = new GsonBuilder()
-				  .registerTypeAdapter(Embedded.class, new EmbeddedDeserializer(embeddedProcessor))
-				  .create();
-		
+		Gson gson = new GsonBuilder().registerTypeAdapter(Embedded.class, new EmbeddedDeserializer(embeddedProcessor))
+				.create();
+
 		List<Feature> features = new ArrayList<>();
 		Feature[] parsedFeatures = null;
 
 		for (Path jsonFilePath : jsonFilePaths) {
-			
+
 			try {
 				parsedFeatures = gson.fromJson(Files.newBufferedReader(jsonFilePath), Feature[].class);
-			} catch (JsonSyntaxException  | JsonIOException | IOException e) {
+			} catch (JsonSyntaxException | JsonIOException | IOException e) {
 				logger.warn(String.format(
 						"Skipping json report at '%s', as unable to parse json report file to Feature pojo.",
 						jsonFilePath));
 				continue;
 			}
-			
+
 			if (parsedFeatures == null || parsedFeatures.length == 0) {
 				logger.warn(String.format(
 						"Skipping json report at '%s', parsing json report file returned no Feature pojo.",
@@ -68,7 +67,8 @@ public class JsonFileConverter {
 					+ "Check the 'extentreport.cucumberJsonReportDirectory' plugin configuration.");
 
 		if (!features.stream().flatMap(f -> f.getElements().stream())
-				.filter(s -> s.getStartTimestamp() == null || s.getStartTimestamp().isEmpty())
+				.filter(s -> !s.getKeyword().equalsIgnoreCase("Background")
+						&& (s.getStartTimestamp() == null || s.getStartTimestamp().isEmpty()))
 				.collect(Collectors.toList()).isEmpty())
 			throw new ExtentReportsCucumberPluginException(
 					"Start timestamp data of scenario is essential but is missing in json report. "

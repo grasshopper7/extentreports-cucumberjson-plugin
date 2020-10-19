@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -19,11 +20,20 @@ public class FeatureProcessor {
 		updateStartAndEndTimes(feature);
 	}
 
-	protected void updateScenarioWithBackgroundSteps(Feature feature) {
-		Scenario firstScenario = feature.getElements().get(0);
-		if (firstScenario.getKeyword().equalsIgnoreCase("background")) {
-			feature.getElements().remove(0);
-			feature.getElements().forEach(s -> s.getSteps().addAll(0, firstScenario.getSteps()));
+	protected void updateScenarioWithBackgroundSteps(Feature feature) {		
+		if(feature.getElements().get(0).getKeyword().equalsIgnoreCase("background")) {
+			List<Scenario> scenarios = feature.getElements();
+			Scenario backgroundScenario = null;
+			Iterator<Scenario> iterator = scenarios.iterator();
+			
+			while(iterator.hasNext()) {
+				Scenario scenario = iterator.next();
+				if(scenario.getKeyword().equalsIgnoreCase("background")) {
+					backgroundScenario = scenario;
+					iterator.remove();
+				} else
+					scenario.getSteps().addAll(0, backgroundScenario.getSteps());
+			}
 		}
 	}
 	

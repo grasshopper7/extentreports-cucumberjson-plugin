@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.2.0 (2020-10-20)
+* Add support for pdf reporter [Issue 10](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/10)
+* Add hooktype and related processing to hook [Issue 11](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/11)
+* Log docstring and datatable as pass status [Issue 12](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/12)
+
 ## 2.1.0 (2020-10-20)
 * Handling of hooks and result calculation [Issue 8](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/8)
 * Error if background present for multiple scenario in feature file [Issue 9](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/9)

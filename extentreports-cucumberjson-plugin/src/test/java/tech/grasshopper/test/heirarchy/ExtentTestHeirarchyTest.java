@@ -22,6 +22,7 @@ import tech.grasshopper.DateConverter;
 import tech.grasshopper.FeatureBuilder;
 import tech.grasshopper.pojo.Feature;
 import tech.grasshopper.pojo.Hook;
+import tech.grasshopper.pojo.Hook.HookType;
 import tech.grasshopper.pojo.Scenario;
 import tech.grasshopper.pojo.Step;
 import tech.grasshopper.processor.EmbeddedProcessor;
@@ -342,6 +343,7 @@ public class ExtentTestHeirarchyTest {
 		when(scenario.getBefore()).thenReturn(Arrays.asList(hook));
 		when(hook.getResult().getStatus()).thenReturn("passed");
 		when(hook.getMatch().getLocation()).thenReturn(location);
+		when(hook.getHookType()).thenReturn(HookType.BEFORE);
 
 		List<ExtentTest> hooksExtentTest = extentTestHeirarchy.createBeforeHookExtentNodes(scenarioExtentTest,
 				scenario);
@@ -362,15 +364,30 @@ public class ExtentTestHeirarchyTest {
 		when(reportProperties.isDisplayAllHooks()).thenReturn(true);
 
 		Scenario scenario = mock(Scenario.class);
-		Hook hook = mock(Hook.class, RETURNS_DEEP_STUBS);
-		when(scenario.getBefore()).thenReturn(Arrays.asList(hook));
-		when(scenario.getAfter()).thenReturn(Arrays.asList(hook));
-		when(hook.getResult().getStatus()).thenReturn("passed");
-		when(hook.getMatch().getLocation()).thenReturn("stepdefs.Stepdefs.step()");
+		Hook beforeHook = mock(Hook.class, RETURNS_DEEP_STUBS);
+		when(scenario.getBefore()).thenReturn(Arrays.asList(beforeHook));
+		when(beforeHook.getResult().getStatus()).thenReturn("passed");
+		when(beforeHook.getMatch().getLocation()).thenReturn("stepdefs.Stepdefs.step()");
+		when(beforeHook.getHookType()).thenReturn(HookType.BEFORE);
+		
+		Hook afterHook = mock(Hook.class, RETURNS_DEEP_STUBS);
+		when(scenario.getAfter()).thenReturn(Arrays.asList(afterHook));
+		when(afterHook.getResult().getStatus()).thenReturn("passed");
+		when(afterHook.getMatch().getLocation()).thenReturn("stepdefs.Stepdefs.step()");
+		when(afterHook.getHookType()).thenReturn(HookType.AFTER);
 
 		Step step = mock(Step.class);
-		when(step.getBefore()).thenReturn(Arrays.asList(hook));
-		when(step.getAfter()).thenReturn(Arrays.asList(hook));
+		Hook beforeStepHook = mock(Hook.class, RETURNS_DEEP_STUBS);
+		when(step.getBefore()).thenReturn(Arrays.asList(beforeStepHook));
+		when(beforeStepHook.getResult().getStatus()).thenReturn("passed");
+		when(beforeStepHook.getMatch().getLocation()).thenReturn("stepdefs.Stepdefs.step()");
+		when(beforeStepHook.getHookType()).thenReturn(HookType.BEFORE_STEP);
+		
+		Hook afterStepHook = mock(Hook.class, RETURNS_DEEP_STUBS);
+		when(step.getAfter()).thenReturn(Arrays.asList(afterStepHook));
+		when(afterStepHook.getResult().getStatus()).thenReturn("passed");
+		when(afterStepHook.getMatch().getLocation()).thenReturn("stepdefs.Stepdefs.step()");
+		when(afterStepHook.getHookType()).thenReturn(HookType.AFTER_STEP);
 
 		extentTestHeirarchy.createBeforeHookExtentNodes(scenarioExtentTest, scenario);
 		extentTestHeirarchy.createBeforeStepHookExtentNodes(scenarioExtentTest, step);

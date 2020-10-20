@@ -19,4 +19,10 @@ public class Hook {
     private int testId;
     private Date startTime;
     private Date endTime;
+    
+    private HookType hookType;
+    
+    public static enum HookType {
+    	BEFORE, AFTER, BEFORE_STEP, AFTER_STEP;
+    }
 }

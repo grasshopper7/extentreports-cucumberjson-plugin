@@ -111,18 +111,19 @@ public abstract class ExtentTestHeirarchy {
 		String[] splits = id.split(";");
 		if (splits.length != 4)
 			return id;
-		
+
 		String[] name = splits[1].split("-");
 		return Arrays.stream(name).map(t -> {
-			if(t.length() == 1)
+			if (t.length() == 1)
 				return t.toUpperCase();
 			return t.substring(0, 1).toUpperCase() + t.substring(1);
 		}).collect(Collectors.joining(" "));
 	}
 
 	public ExtentTest createHookExtentNode(ExtentTest parentExtentTest, Hook hook) {
-		ExtentTest hookExtentTest = parentExtentTest
-				.createNode(com.aventstack.extentreports.gherkin.model.Asterisk.class, hook.getMatch().getLocation());
+		ExtentTest hookExtentTest = parentExtentTest.createNode(
+				com.aventstack.extentreports.gherkin.model.Asterisk.class, hook.getMatch().getLocation(),
+				hook.getHookType().toString().toUpperCase());
 
 		hook.setTestId(hookExtentTest.getModel().getId());
 		hook.getOutput().forEach(o -> hookExtentTest.info(o));
@@ -179,9 +180,9 @@ public abstract class ExtentTestHeirarchy {
 		test.setEndTime(step.getEndTime());
 
 		if (step.getRows().size() > 0)
-			stepExtentTest.info(step.getDataTableMarkup());
+			stepExtentTest.pass(step.getDataTableMarkup());
 		if (step.getDocStringMarkup() != null)
-			stepExtentTest.info(step.getDocStringMarkup());
+			stepExtentTest.pass(step.getDocStringMarkup());
 		for (String msg : step.getOutput())
 			stepExtentTest.info(msg);
 		if (step.getEmbeddings().size() > 0)

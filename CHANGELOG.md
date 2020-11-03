@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.5.0 (2021-10-24)
+* Fail pending step when strict property is set to true [Issue 14](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/14)
+* Updated pdf report to 1.2.0
+
 ## 2.4.0 (2021-10-24)
 * Updated pdf report to 1.1.0
 

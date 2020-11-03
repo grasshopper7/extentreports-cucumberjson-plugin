@@ -204,7 +204,8 @@ public abstract class ExtentTestHeirarchy {
 			test.fail(throwInstance);
 		} else if (stepStatus.equalsIgnoreCase("passed"))
 			test.pass("");
-		else if (stepStatus.equalsIgnoreCase("undefined") && reportProperties.isStrictCucumber6Behavior())
+		else if ((stepStatus.equalsIgnoreCase("undefined") || stepStatus.equalsIgnoreCase("pending"))
+				&& reportProperties.isStrictCucumber6Behavior())
 			test.fail("");
 		else
 			test.skip("");

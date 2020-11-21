@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import tech.grasshopper.logging.ExtentReportsCucumberLogger;
 
+@Ignore
 public class ErrorMessageProcessorTest {
 
 	private ErrorMessageProcessor errorMessageProcessor;

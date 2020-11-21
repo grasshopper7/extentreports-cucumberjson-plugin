@@ -5,19 +5,20 @@
 
 	<groupId>tech.grasshopper</groupId>
 	<artifactId>extentreports-cucumberjson-plugin</artifactId>
-	<version>2.5.0</version>
+	<version>2.6.0</version>
 	<packaging>maven-plugin</packaging>
 
 	<properties>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8
+		</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 
 		<gson.version>2.8.6</gson.version>
-		<extent.version>5.0.1</extent.version>
+		<extent.version>5.0.5</extent.version>
 		<lombok.version>1.18.12</lombok.version>
 		<iharder.version>2.3.9</iharder.version>
-		<pdfreporter.version>1.2.0</pdfreporter.version>
+		<pdfreporter.version>1.4.0</pdfreporter.version>
 		<mockito.version>3.3.3</mockito.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<junit5.vintage.version>5.6.0</junit5.vintage.version>
@@ -38,12 +39,6 @@
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
 			<version>${extent.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.testng</groupId>
-					<artifactId>testng</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>tech.grasshopper</groupId>

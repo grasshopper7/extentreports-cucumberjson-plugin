@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.GherkinKeyword;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.model.Test;
 
 import tech.grasshopper.pojo.Embedded;
@@ -199,10 +200,9 @@ public abstract class ExtentTestHeirarchy {
 	public void updateTestLogStatus(ExtentTest test, Result result) {
 		String stepStatus = result.getStatus();
 
-		if (stepStatus.equalsIgnoreCase("failed")) {
-			Throwable throwInstance = errorMessageProcessor.createThrowableObject(result.getErrorMessage());
-			test.fail(throwInstance);
-		} else if (stepStatus.equalsIgnoreCase("passed"))
+		if (stepStatus.equalsIgnoreCase("failed"))
+			test.fail(MarkupHelper.createCodeBlock(result.getErrorMessage()));
+		else if (stepStatus.equalsIgnoreCase("passed"))
 			test.pass("");
 		else if ((stepStatus.equalsIgnoreCase("undefined") || stepStatus.equalsIgnoreCase("pending"))
 				&& reportProperties.isStrictCucumber6Behavior())

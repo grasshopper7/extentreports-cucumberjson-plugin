@@ -22,7 +22,6 @@ import tech.grasshopper.pojo.Result;
 import tech.grasshopper.pojo.Scenario;
 import tech.grasshopper.pojo.Step;
 import tech.grasshopper.processor.EmbeddedProcessor;
-import tech.grasshopper.processor.ErrorMessageProcessor;
 import tech.grasshopper.processor.FeatureProcessor;
 import tech.grasshopper.processor.ScenarioProcessor;
 import tech.grasshopper.processor.StepProcessor;
@@ -38,28 +37,24 @@ public abstract class ExtentTestHeirarchy {
 	protected FeatureProcessor featureProcessor;
 	protected ScenarioProcessor scenarioProcessor;
 	protected StepProcessor stepProcessor;
-	protected ErrorMessageProcessor errorMessageProcessor;
 	protected EmbeddedProcessor embeddedProcessor;
 	private ReportProperties reportProperties;
 
 	@Inject
 	protected ExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
-			StepProcessor stepProcessor, ErrorMessageProcessor errorMessageProcessor,
-			EmbeddedProcessor embeddedProcessor, ReportProperties reportProperties) {
+			StepProcessor stepProcessor, EmbeddedProcessor embeddedProcessor, ReportProperties reportProperties) {
 		this.featureProcessor = featureProcessor;
 		this.scenarioProcessor = scenarioProcessor;
 		this.stepProcessor = stepProcessor;
-		this.errorMessageProcessor = errorMessageProcessor;
 		this.embeddedProcessor = embeddedProcessor;
 		this.reportProperties = reportProperties;
 
 	}
 
 	protected ExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
-			StepProcessor stepProcessor, ErrorMessageProcessor errorMessageProcessor,
-			EmbeddedProcessor embeddedProcessor, ExtentReports extent, ReportProperties reportProperties) {
-		this(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor,
-				reportProperties);
+			StepProcessor stepProcessor, EmbeddedProcessor embeddedProcessor, ExtentReports extent,
+			ReportProperties reportProperties) {
+		this(featureProcessor, scenarioProcessor, stepProcessor, embeddedProcessor, reportProperties);
 		this.extent = extent;
 	}
 

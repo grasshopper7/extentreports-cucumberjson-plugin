@@ -10,7 +10,6 @@ import com.aventstack.extentreports.ExtentTest;
 
 import tech.grasshopper.pojo.Feature;
 import tech.grasshopper.processor.EmbeddedProcessor;
-import tech.grasshopper.processor.ErrorMessageProcessor;
 import tech.grasshopper.processor.FeatureProcessor;
 import tech.grasshopper.processor.ScenarioProcessor;
 import tech.grasshopper.processor.StepProcessor;
@@ -18,18 +17,17 @@ import tech.grasshopper.properties.ReportProperties;
 
 @Singleton
 public class DefaultExtentTestHeirarchy extends ExtentTestHeirarchy {
-	
+
 	@Inject
 	public DefaultExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
-			StepProcessor stepProcessor, ErrorMessageProcessor errorMessageProcessor,
-			EmbeddedProcessor embeddedProcessor, ReportProperties reportProperties) {
-		super(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor, reportProperties);
+			StepProcessor stepProcessor, EmbeddedProcessor embeddedProcessor, ReportProperties reportProperties) {
+		super(featureProcessor, scenarioProcessor, stepProcessor, embeddedProcessor, reportProperties);
 	}
-	
+
 	DefaultExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
-			StepProcessor stepProcessor, ErrorMessageProcessor errorMessageProcessor,
-			EmbeddedProcessor embeddedProcessor, ExtentReports extent, ReportProperties reportProperties) {
-		super(featureProcessor, scenarioProcessor, stepProcessor, errorMessageProcessor, embeddedProcessor, extent, reportProperties);
+			StepProcessor stepProcessor, EmbeddedProcessor embeddedProcessor, ExtentReports extent,
+			ReportProperties reportProperties) {
+		super(featureProcessor, scenarioProcessor, stepProcessor, embeddedProcessor, extent, reportProperties);
 	}
 
 	@Override

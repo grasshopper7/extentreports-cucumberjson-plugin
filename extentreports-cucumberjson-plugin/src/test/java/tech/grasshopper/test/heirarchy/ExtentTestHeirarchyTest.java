@@ -2,7 +2,6 @@ package tech.grasshopper.test.heirarchy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -26,7 +25,6 @@ import tech.grasshopper.pojo.Hook.HookType;
 import tech.grasshopper.pojo.Scenario;
 import tech.grasshopper.pojo.Step;
 import tech.grasshopper.processor.EmbeddedProcessor;
-import tech.grasshopper.processor.ErrorMessageProcessor;
 import tech.grasshopper.processor.FeatureProcessor;
 import tech.grasshopper.processor.ScenarioProcessor;
 import tech.grasshopper.processor.StepProcessor;
@@ -38,7 +36,6 @@ public class ExtentTestHeirarchyTest {
 	private FeatureProcessor featureProcessor;
 	private ScenarioProcessor scenarioProcessor;
 	private StepProcessor stepProcessor;
-	private ErrorMessageProcessor errorMessageProcessor;
 	private EmbeddedProcessor embeddedProcessor;
 	private ExtentReports extent;
 	private ReportProperties reportProperties;
@@ -48,13 +45,12 @@ public class ExtentTestHeirarchyTest {
 		featureProcessor = mock(FeatureProcessor.class);
 		scenarioProcessor = mock(ScenarioProcessor.class);
 		stepProcessor = mock(StepProcessor.class);
-		errorMessageProcessor = mock(ErrorMessageProcessor.class);
 		embeddedProcessor = mock(EmbeddedProcessor.class);
 		extent = new ExtentReports();
 		reportProperties = mock(ReportProperties.class);
 
 		extentTestHeirarchy = new DefaultExtentTestHeirarchy(featureProcessor, scenarioProcessor, stepProcessor,
-				errorMessageProcessor, embeddedProcessor, extent, reportProperties);
+				embeddedProcessor, extent, reportProperties);
 	}
 
 	@Test
@@ -273,7 +269,8 @@ public class ExtentTestHeirarchyTest {
 		assertEquals("Number of child nodes of scenario should be 1.", 1, scenarioChilds.size());
 
 		com.aventstack.extentreports.model.Test stepTest = stepExtentTest.getModel();
-		assertEquals("Step keyword is not correct.", "class com.aventstack.extentreports.gherkin.model." + keyword.trim(), stepTest.getBddType().toString());
+		assertEquals("Step keyword is not correct.",
+				"class com.aventstack.extentreports.gherkin.model." + keyword.trim(), stepTest.getBddType().toString());
 		assertEquals("Step text is not correct.", keyword + stepText, stepTest.getName());
 		assertEquals("Step definition method location is not correct.", location, stepTest.getDescription());
 		assertEquals("Step status is not correct.", "PASS", stepTest.getStatus().name());
@@ -293,9 +290,6 @@ public class ExtentTestHeirarchyTest {
 				.setStepErrorMessage("Error Message").addStep().setStepKeyword("Then ")
 				.setStepText("Step text for \u0027then\\u0027 step")
 				.setStepLocation("stepdefs.Stepdefs.stepThen(java.lang.String)").setStepResult("skipped").build();
-
-		Throwable throwable = new Exception("Example Throwable");
-		when(errorMessageProcessor.createThrowableObject(anyString())).thenReturn(throwable);
 
 		ExtentTest stepWhenExtentTest = extentTestHeirarchy.createStepExtentNode(scenarioExtentTest,
 				feature.getElements().get(0).getSteps().get(0));
@@ -369,7 +363,7 @@ public class ExtentTestHeirarchyTest {
 		when(beforeHook.getResult().getStatus()).thenReturn("passed");
 		when(beforeHook.getMatch().getLocation()).thenReturn("stepdefs.Stepdefs.step()");
 		when(beforeHook.getHookType()).thenReturn(HookType.BEFORE);
-		
+
 		Hook afterHook = mock(Hook.class, RETURNS_DEEP_STUBS);
 		when(scenario.getAfter()).thenReturn(Arrays.asList(afterHook));
 		when(afterHook.getResult().getStatus()).thenReturn("passed");
@@ -382,7 +376,7 @@ public class ExtentTestHeirarchyTest {
 		when(beforeStepHook.getResult().getStatus()).thenReturn("passed");
 		when(beforeStepHook.getMatch().getLocation()).thenReturn("stepdefs.Stepdefs.step()");
 		when(beforeStepHook.getHookType()).thenReturn(HookType.BEFORE_STEP);
-		
+
 		Hook afterStepHook = mock(Hook.class, RETURNS_DEEP_STUBS);
 		when(step.getAfter()).thenReturn(Arrays.asList(afterStepHook));
 		when(afterStepHook.getResult().getStatus()).thenReturn("passed");

@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.7.0 (2020-01-28)
+* Remove ErrorMessageProcessor class [Issue 16] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/16
+* Updated pdf report to 1.5.0
+
 ## 2.6.1 (2020-01-27)
 * Fixed NPE when screenshot attached without name argument [Issue 17] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/17
 

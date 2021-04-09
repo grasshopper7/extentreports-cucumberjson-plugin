@@ -112,7 +112,10 @@ public abstract class ExtentTestHeirarchy {
 		return Arrays.stream(name).map(t -> {
 			if (t.length() == 1)
 				return t.toUpperCase();
-			return t.substring(0, 1).toUpperCase() + t.substring(1);
+			else if (t.length() > 1)
+				return t.substring(0, 1).toUpperCase() + t.substring(1);
+			else
+				return "";
 		}).collect(Collectors.joining(" "));
 	}
 

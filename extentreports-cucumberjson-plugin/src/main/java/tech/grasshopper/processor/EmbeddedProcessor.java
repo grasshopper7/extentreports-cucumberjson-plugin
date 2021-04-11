@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,6 @@ import javax.inject.Singleton;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 
-import net.iharder.Base64;
 import tech.grasshopper.logging.ExtentReportsCucumberLogger;
 import tech.grasshopper.pojo.Embedded;
 import tech.grasshopper.properties.ReportProperties;
@@ -76,7 +76,7 @@ public class EmbeddedProcessor {
 		if (extension != null) {
 			Path path = createEmbeddedFileStructure(extension);
 			try {
-				Files.write(path, Base64.decode(embedded.getData()));
+				Files.write(path, Base64.getDecoder().decode(embedded.getData()));
 			} catch (IOException e) {
 				logger.warn("Skipping embedded file creation at location - " + path.toString()
 						+ ", due to error in creating file.");

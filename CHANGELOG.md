@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.7.1 (2020-04-11)
+* Use java base64 encoder\decoder for embedded processing [Issue 18] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/18
+* Fix parsing of scenario outline test name [Issue 19] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/19
+* PDF report not generated [Issue 20] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/20
+
 ## 2.7.0 (2020-01-28)
 * Remove ErrorMessageProcessor class [Issue 16] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/16
 * Updated pdf report to 1.5.0

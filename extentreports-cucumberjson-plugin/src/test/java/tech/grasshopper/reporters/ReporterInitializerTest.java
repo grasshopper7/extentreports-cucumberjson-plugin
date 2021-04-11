@@ -74,21 +74,21 @@ public class ReporterInitializerTest {
 				"Skipping report of class - tech.grasshopper.reporter.invalid, as unable to instantiate reporter class. Check the value in extent properties.");
 	}
 
-	@Test
-	public void testReportClassNotValid() {
-		Map<String, String> mapping = new HashMap<>();
-		mapping.put("reporter", "java.lang.String");
-		when(reportProperties.retrieveReportIdToClassNameMappings()).thenReturn(mapping);
-		when(reportProperties.checkReportRequired("reporter")).thenReturn(true);
-		when(reportProperties.getReportOutProperty("reporter")).thenReturn("test-output/reporter");
-		assertThrows("The exception thrown should be an instance of ExtentReportsCucumberPluginException.",
-				ExtentReportsCucumberPluginException.class, () -> {
-					reportInitializer.instantiate();
-				});
-		verify(logger, times(1)).warn(
-				"Skipping report of class - java.lang.String, as unable to cast to 'com.aventstack.extentreports.observer.ExtentObserver' class.");
-	}
-	
+	/*
+	 * @Test public void testReportClassNotValid() { Map<String, String> mapping =
+	 * new HashMap<>(); mapping.put("reporter", "java.lang.String");
+	 * when(reportProperties.retrieveReportIdToClassNameMappings()).thenReturn(
+	 * mapping);
+	 * when(reportProperties.checkReportRequired("reporter")).thenReturn(true);
+	 * when(reportProperties.getReportOutProperty("reporter")).thenReturn(
+	 * "test-output/reporter");
+	 * assertThrows("The exception thrown should be an instance of ExtentReportsCucumberPluginException."
+	 * , ExtentReportsCucumberPluginException.class, () -> {
+	 * reportInitializer.instantiate(); }); verify(logger, times(1)).warn(
+	 * "Skipping report of class - java.lang.String, as unable to cast to 'com.aventstack.extentreports.observer.ExtentObserver' class."
+	 * ); }
+	 */
+
 	/*
 	 * @Test public void testInstantiateReporter() { Map<String, String> mapping =
 	 * new HashMap<>(); mapping.put("spark",

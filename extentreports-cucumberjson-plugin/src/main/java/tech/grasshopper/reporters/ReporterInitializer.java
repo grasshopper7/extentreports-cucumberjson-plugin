@@ -34,7 +34,7 @@ public class ReporterInitializer {
 	public void instantiate() {
 		reportProperties.retrieveReportIdToClassNameMappings().forEach((k, v) -> {
 			if (reportProperties.checkReportRequired(k)) {
-				ExtentObserver<?> reportInstance = instantiateReporter(v, reportProperties.getReportOutProperty(k));
+				ExtentObserver<?> reportInstance = instantiateReporter(k, v);
 				if (reportInstance == null)
 					return;
 				loadReporterUISettings(reportInstance, reportProperties.getReportConfigProperty(k));
@@ -50,12 +50,13 @@ public class ReporterInitializer {
 		return reportKeyToInstance;
 	}
 
-	private ExtentObserver<?> instantiateReporter(String clsName, String reportOutputFolder) {
+	private ExtentObserver<?> instantiateReporter(String key, String clsName) {
 		ExtentObserver<?> reportInstance = null;
 		try {
 			Class<?> reportClass = Class.forName(clsName);
-			Constructor<?> reportConstructor = reportClass.getConstructor(String.class);
-			reportInstance = (ExtentObserver<?>) reportConstructor.newInstance(reportOutputFolder);
+			Constructor<?> reportConstructor = reportClass.getConstructor(String.class, ReportProperties.class);
+			ReporterAdapter reportAdapter = (ReporterAdapter) reportConstructor.newInstance(key, reportProperties);
+			reportInstance = reportAdapter.createReporter();
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InvocationTargetException
 				| IllegalAccessException | InstantiationException e) {
 			logger.warn("Skipping report of class - " + clsName
@@ -73,7 +74,7 @@ public class ReporterInitializer {
 	private void loadReporterUISettings(ExtentObserver<?> reportInstance, String reportConfigPath) {
 		if (!reportConfigPath.isEmpty())
 			try {
-				((ReporterConfigurable)reportInstance).loadXMLConfig(reportConfigPath);
+				((ReporterConfigurable) reportInstance).loadXMLConfig(reportConfigPath);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -5,7 +5,7 @@
 
 	<groupId>tech.grasshopper</groupId>
 	<artifactId>extentreports-cucumberjson-plugin</artifactId>
-	<version>2.7.1</version>
+	<version>2.8.0</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>extentreports-cucumberjson-plugin</name>
@@ -34,9 +34,9 @@
 		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 
 		<gson.version>2.8.6</gson.version>
-		<extent.version>5.0.5</extent.version>
+		<extent.version>5.0.6</extent.version>
 		<lombok.version>1.18.18</lombok.version>
-		<pdfreporter.version>1.6.0</pdfreporter.version>
+		<pdfreporter.version>1.7.0</pdfreporter.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<mockito.version>3.3.3</mockito.version>
@@ -132,7 +132,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
+				<version>3.2.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
@@ -148,7 +148,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -161,7 +161,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -174,7 +174,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
+				<version>1.6</version>
 				<executions>
 					<execution>
 						<id>sign-artifacts</id>

@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.8.0 (2021-04-16)
+* Display undefined skipped pending status message or stack [Issue 21] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/21
+* Updated pdf report to 1.7.0
+
 ## 2.7.1 (2020-04-11)
 * Use java base64 encoder\decoder for embedded processing [Issue 18] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/18
 * Fix parsing of scenario outline test name [Issue 19] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/19

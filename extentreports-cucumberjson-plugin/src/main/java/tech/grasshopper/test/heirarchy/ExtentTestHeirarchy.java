@@ -202,9 +202,16 @@ public abstract class ExtentTestHeirarchy {
 			test.fail(MarkupHelper.createCodeBlock(result.getErrorMessage()));
 		else if (stepStatus.equalsIgnoreCase("passed"))
 			test.pass("");
-		else if ((stepStatus.equalsIgnoreCase("undefined") || stepStatus.equalsIgnoreCase("pending"))
-				&& reportProperties.isStrictCucumber6Behavior())
-			test.fail("");
+		else if (stepStatus.equalsIgnoreCase("undefined") && reportProperties.isStrictCucumber6Behavior())
+			test.fail(MarkupHelper.createCodeBlock("Step is undefined"));
+		else if (stepStatus.equalsIgnoreCase("undefined"))
+			test.skip(MarkupHelper.createCodeBlock("Step is undefined"));
+		else if (stepStatus.equalsIgnoreCase("pending") && reportProperties.isStrictCucumber6Behavior())
+			test.fail(MarkupHelper.createCodeBlock(result.getErrorMessage()));
+		else if (stepStatus.equalsIgnoreCase("pending"))
+			test.skip(MarkupHelper.createCodeBlock(result.getErrorMessage()));
+		else if (stepStatus.equalsIgnoreCase("skipped") && result.getErrorMessage() != null)
+			test.skip(MarkupHelper.createCodeBlock(result.getErrorMessage()));
 		else
 			test.skip("");
 	}

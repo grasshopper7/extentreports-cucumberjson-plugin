@@ -289,7 +289,8 @@ public class ExtentTestHeirarchyTest {
 				.setStepLocation("stepdefs.Stepdefs.stepWhen(java.lang.String)").setStepResult("failed")
 				.setStepErrorMessage("Error Message").addStep().setStepKeyword("Then ")
 				.setStepText("Step text for \u0027then\\u0027 step")
-				.setStepLocation("stepdefs.Stepdefs.stepThen(java.lang.String)").setStepResult("skipped").build();
+				.setStepLocation("stepdefs.Stepdefs.stepThen(java.lang.String)").setStepResult("skipped")
+				.setStepErrorMessage("Skipped Message").build();
 
 		ExtentTest stepWhenExtentTest = extentTestHeirarchy.createStepExtentNode(scenarioExtentTest,
 				feature.getElements().get(0).getSteps().get(0));

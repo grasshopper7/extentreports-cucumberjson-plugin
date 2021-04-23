@@ -5,23 +5,28 @@ All notable changes to this project will be documented in this file.
 * Updated pdf report to 2.2.1
 
 ## 2.8.0 (2021-04-16)
+<<<<<<< HEAD
 * Display undefined skipped pending status message or stack [Issue 21] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/21
 * Updated pdf report to 2.2.0
+=======
+* Display undefined skipped pending status message or stack [Issue 21](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/21)
+* Updated pdf report to 1.7.0
+>>>>>>> branch 'master' of https://github.com/grasshopper7/extentreports-cucumberjson-plugin
 
 ## 2.7.1 (2020-04-11)
-* Use java base64 encoder\decoder for embedded processing [Issue 18] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/18
-* Fix parsing of scenario outline test name [Issue 19] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/19
-* PDF report not generated [Issue 20] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/20
+* Use java base64 encoder\decoder for embedded processing [Issue 18](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/18)
+* Fix parsing of scenario outline test name [Issue 19](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/19)
+* PDF report not generated [Issue 20](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/20)
 
 ## 2.7.0 (2020-01-28)
-* Remove ErrorMessageProcessor class [Issue 16] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/16
+* Remove ErrorMessageProcessor class [Issue 16](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/16)
 * Updated pdf report to 1.5.0
 
 ## 2.6.1 (2020-01-27)
-* Fixed NPE when screenshot attached without name argument [Issue 17] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/17
+* Fixed NPE when screenshot attached without name argument [Issue 17](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/17)
 
 ## 2.6.0 (2020-11-21)
-* Change logic of logging stacktrace to markup instead of exception [Issue 15] https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/15
+* Change logic of logging stacktrace to markup instead of exception [Issue 15](https://github.com/grasshopper7/extentreports-cucumberjson-plugin/issues/15)
 * Updated pdf report to 1.4.0
 
 ## 2.5.0 (2020-10-24)

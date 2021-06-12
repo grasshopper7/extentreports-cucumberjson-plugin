@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.8.2 (2021-06-12)
+* Updated pdf report to 2.2.3
+
 ## 2.8.1 (2021-04-19)
 * Updated pdf report to 2.2.1
 

@@ -1,13 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<<<<<<< HEAD
 ## 2.9.1 (2021-11-05)
 * Updated version number due to Maven replication issues
 
+=======
+>>>>>>> branch 'master' of https://github.com/grasshopper7/extentreports-cucumberjson-plugin
 ## 2.9.0 (2021-11-01)
 * Updated pdf report data collector version to 1.8.0
 
-# 2.8.4 (2021-09-14)
+## 2.8.4 (2021-09-14)
 * Updated pdf report data collector version to 1.7.4
 
 ## 2.8.3 (2021-08-3)

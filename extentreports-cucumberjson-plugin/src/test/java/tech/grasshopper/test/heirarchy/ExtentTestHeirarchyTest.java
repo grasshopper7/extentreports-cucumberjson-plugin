@@ -19,6 +19,7 @@ import com.aventstack.extentreports.model.Log;
 
 import tech.grasshopper.DateConverter;
 import tech.grasshopper.FeatureBuilder;
+import tech.grasshopper.exception.ExceptionParser;
 import tech.grasshopper.pojo.Feature;
 import tech.grasshopper.pojo.Hook;
 import tech.grasshopper.pojo.Hook.HookType;
@@ -37,6 +38,7 @@ public class ExtentTestHeirarchyTest {
 	private ScenarioProcessor scenarioProcessor;
 	private StepProcessor stepProcessor;
 	private EmbeddedProcessor embeddedProcessor;
+	private ExceptionParser exceptionParser;
 	private ExtentReports extent;
 	private ReportProperties reportProperties;
 
@@ -46,11 +48,12 @@ public class ExtentTestHeirarchyTest {
 		scenarioProcessor = mock(ScenarioProcessor.class);
 		stepProcessor = mock(StepProcessor.class);
 		embeddedProcessor = mock(EmbeddedProcessor.class);
+		exceptionParser = mock(ExceptionParser.class);
 		extent = new ExtentReports();
 		reportProperties = mock(ReportProperties.class);
 
 		extentTestHeirarchy = new DefaultExtentTestHeirarchy(featureProcessor, scenarioProcessor, stepProcessor,
-				embeddedProcessor, extent, reportProperties);
+				embeddedProcessor, exceptionParser, extent, reportProperties);
 	}
 
 	@Test

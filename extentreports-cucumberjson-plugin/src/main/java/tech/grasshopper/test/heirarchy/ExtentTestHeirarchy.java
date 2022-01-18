@@ -15,6 +15,7 @@ import com.aventstack.extentreports.GherkinKeyword;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.model.Test;
 
+import tech.grasshopper.exception.ExceptionParser;
 import tech.grasshopper.pojo.Embedded;
 import tech.grasshopper.pojo.Feature;
 import tech.grasshopper.pojo.Hook;
@@ -38,23 +39,26 @@ public abstract class ExtentTestHeirarchy {
 	protected ScenarioProcessor scenarioProcessor;
 	protected StepProcessor stepProcessor;
 	protected EmbeddedProcessor embeddedProcessor;
+	protected ExceptionParser exceptionParser;
 	private ReportProperties reportProperties;
 
 	@Inject
 	protected ExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
-			StepProcessor stepProcessor, EmbeddedProcessor embeddedProcessor, ReportProperties reportProperties) {
+			StepProcessor stepProcessor, EmbeddedProcessor embeddedProcessor, ExceptionParser exceptionParser,
+			ReportProperties reportProperties) {
 		this.featureProcessor = featureProcessor;
 		this.scenarioProcessor = scenarioProcessor;
 		this.stepProcessor = stepProcessor;
 		this.embeddedProcessor = embeddedProcessor;
+		this.exceptionParser = exceptionParser;
 		this.reportProperties = reportProperties;
 
 	}
 
 	protected ExtentTestHeirarchy(FeatureProcessor featureProcessor, ScenarioProcessor scenarioProcessor,
-			StepProcessor stepProcessor, EmbeddedProcessor embeddedProcessor, ExtentReports extent,
-			ReportProperties reportProperties) {
-		this(featureProcessor, scenarioProcessor, stepProcessor, embeddedProcessor, reportProperties);
+			StepProcessor stepProcessor, EmbeddedProcessor embeddedProcessor, ExceptionParser exceptionParser,
+			ExtentReports extent, ReportProperties reportProperties) {
+		this(featureProcessor, scenarioProcessor, stepProcessor, embeddedProcessor, exceptionParser, reportProperties);
 		this.extent = extent;
 	}
 
@@ -197,17 +201,31 @@ public abstract class ExtentTestHeirarchy {
 
 	public void updateTestLogStatus(ExtentTest test, Result result) {
 		String stepStatus = result.getStatus();
+		Throwable parsedException = null;
+
+		if (stepStatus.equalsIgnoreCase("failed")
+				|| (stepStatus.equalsIgnoreCase("undefined") && reportProperties.isStrictCucumber6Behavior())
+				|| (stepStatus.equalsIgnoreCase("pending") && reportProperties.isStrictCucumber6Behavior())) {
+
+			if (result.getErrorMessage() == null)
+				parsedException = new Exception("Generic Exception - Step is " + stepStatus);
+			else
+				parsedException = exceptionParser.parseStackTrace(result);
+
+			// Hack to remove stack due to exception creation
+			parsedException.setStackTrace(new StackTraceElement[0]);
+		}
 
 		if (stepStatus.equalsIgnoreCase("failed"))
-			test.fail(MarkupHelper.createCodeBlock(result.getErrorMessage()));
+			test.fail(parsedException);
 		else if (stepStatus.equalsIgnoreCase("passed"))
 			test.pass("");
 		else if (stepStatus.equalsIgnoreCase("undefined") && reportProperties.isStrictCucumber6Behavior())
-			test.fail(MarkupHelper.createCodeBlock("Step is undefined"));
+			test.fail(parsedException);
 		else if (stepStatus.equalsIgnoreCase("undefined"))
 			test.skip(MarkupHelper.createCodeBlock("Step is undefined"));
 		else if (stepStatus.equalsIgnoreCase("pending") && reportProperties.isStrictCucumber6Behavior())
-			test.fail(MarkupHelper.createCodeBlock(result.getErrorMessage()));
+			test.fail(parsedException);
 		else if (stepStatus.equalsIgnoreCase("pending"))
 			test.skip(MarkupHelper.createCodeBlock(result.getErrorMessage()));
 		else if (stepStatus.equalsIgnoreCase("skipped") && result.getErrorMessage() != null)

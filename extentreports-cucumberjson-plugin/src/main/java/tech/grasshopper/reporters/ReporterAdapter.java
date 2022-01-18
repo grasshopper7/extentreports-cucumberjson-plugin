@@ -1,6 +1,7 @@
 package tech.grasshopper.reporters;
 
 import com.aventstack.extentreports.observer.ExtentObserver;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.JsonFormatter;
 
@@ -53,6 +54,18 @@ public abstract class ReporterAdapter {
 		public ExtentObserver<?> createReporter() {
 			return new ExtentPDFCucumberReporter(reportProperties.getReportOutProperty(id),
 					reportProperties.getReportScreenshotLocation());
+		}
+	}
+
+	public static class HtmlReportAdapter extends ReporterAdapter {
+
+		public HtmlReportAdapter(String id, ReportProperties reportProperties) {
+			super(id, reportProperties);
+		}
+
+		@Override
+		public ExtentObserver<?> createReporter() {
+			return new ExtentHtmlReporter(reportProperties.getReportOutProperty(id));
 		}
 	}
 }

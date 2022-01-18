@@ -37,6 +37,7 @@
 		<extent.version>5.0.8</extent.version>
 		<lombok.version>1.18.18</lombok.version>
 		<pdfreporter.version>1.8.0</pdfreporter.version>
+		<htmlreporter.version>1.0.0</htmlreporter.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<mockito.version>3.3.3</mockito.version>
@@ -70,6 +71,11 @@
 			<groupId>tech.grasshopper</groupId>
 			<artifactId>extent-pdf-report</artifactId>
 			<version>${pdfreporter.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>tech.grasshopper</groupId>
+			<artifactId>htmlextentreporter</artifactId>
+			<version>${htmlreporter.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven</groupId>

@@ -62,10 +62,10 @@ public class ExceptionParser {
 			logger.warn(className + " class cannot be found or not an instance of Throwable.");
 			return new Exception("Generic Exception for " + className + " : " + message);
 		}
-		return createThrowableInstanceWithMessage(className, message, throwableClass);
+		return createThrowableInstance(className, message, throwableClass);
 	}
 
-	private Throwable createThrowableInstanceWithMessage(String className, String message, Class<?> throwableClass) {
+	private Throwable createThrowableInstance(String className, String message, Class<?> throwableClass) {
 		Constructor<?> throwableConstructor = null;
 		Throwable throwableInstance = null;
 

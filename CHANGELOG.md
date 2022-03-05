@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.11.0 (2022-03-05)
+* Refactored to use cucumber-extent generator jar
+* Updated pdf report data collector version to 2.1.0
+
 ## 2.10.0 (2022-01-19)
 * Added ported HTML extent report
 

@@ -29,7 +29,7 @@ import tech.grasshopper.pojo.Feature;
 import tech.grasshopper.pojo.Hook;
 import tech.grasshopper.pojo.Scenario;
 import tech.grasshopper.pojo.Step;
-import tech.grasshopper.processor.EmbeddedProcessor;
+import tech.grasshopper.properties.ReportProperties;
 
 public class JsonFileConverterTest {
 
@@ -38,13 +38,13 @@ public class JsonFileConverterTest {
 
 	private ExtentReportsCucumberLogger logger;
 	private JsonFileConverter jsonFileConverter;
-	private EmbeddedProcessor embeddedProcessor;
+	private ReportProperties reportProperties;
 
 	@Before
 	public void setup() {
 		logger = mock(ExtentReportsCucumberLogger.class);
-		embeddedProcessor = mock(EmbeddedProcessor.class);
-		jsonFileConverter = new JsonFileConverter(embeddedProcessor, logger);
+		reportProperties = mock(ReportProperties.class);
+		jsonFileConverter = new JsonFileConverter(logger, reportProperties);
 	}
 
 	@Test
@@ -180,7 +180,7 @@ public class JsonFileConverterTest {
 		paths.add(Paths.get(jsonFiles[1].getAbsolutePath()));
 
 		List<Feature> features = jsonFileConverter.retrieveFeaturesFromReport(paths);
-		assertEquals("Number of features should be equal to '3'.", 3, features.size());		
+		assertEquals("Number of features should be equal to '3'.", 3, features.size());
 		int scenarios = features.stream().mapToInt(f -> f.getElements().size()).sum();
 		assertEquals("Number of scenarios should be equal to '5'.", 5, scenarios);
 	}

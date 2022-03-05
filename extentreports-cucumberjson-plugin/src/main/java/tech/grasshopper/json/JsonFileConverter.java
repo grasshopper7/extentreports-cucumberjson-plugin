@@ -21,23 +21,23 @@ import tech.grasshopper.json.deserializer.EmbeddedDeserializer;
 import tech.grasshopper.logging.ExtentReportsCucumberLogger;
 import tech.grasshopper.pojo.Embedded;
 import tech.grasshopper.pojo.Feature;
-import tech.grasshopper.processor.EmbeddedProcessor;
+import tech.grasshopper.properties.ReportProperties;
 
 @Singleton
 public class JsonFileConverter {
 
-	private EmbeddedProcessor embeddedProcessor;
 	private ExtentReportsCucumberLogger logger;
+	private ReportProperties reportProperties;
 
 	@Inject
-	public JsonFileConverter(EmbeddedProcessor embeddedProcessor, ExtentReportsCucumberLogger logger) {
-		this.embeddedProcessor = embeddedProcessor;
+	public JsonFileConverter(ExtentReportsCucumberLogger logger, ReportProperties reportProperties) {
 		this.logger = logger;
+		this.reportProperties = reportProperties;
 	}
 
 	public List<Feature> retrieveFeaturesFromReport(List<Path> jsonFilePaths) {
-		Gson gson = new GsonBuilder().registerTypeAdapter(Embedded.class, new EmbeddedDeserializer(embeddedProcessor))
-				.create();
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(Embedded.class, new EmbeddedDeserializer(reportProperties, logger)).create();
 
 		List<Feature> features = new ArrayList<>();
 		Feature[] parsedFeatures = null;

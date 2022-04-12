@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.9.0 (2022-4-12)
+* Updated pdf report data collector version to 2.2.0
+
 ## 2.11.1 (2022-04-09)
 * Updated HTML extent report version
 

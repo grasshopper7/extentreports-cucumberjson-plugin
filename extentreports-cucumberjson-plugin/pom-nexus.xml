@@ -36,7 +36,7 @@
 		<gson.version>2.9.0</gson.version>
 		<extent.version>5.0.9</extent.version>
 		<lombok.version>1.18.18</lombok.version>
-		<pdfreporter.version>2.2.0</pdfreporter.version>
+		<pdfreporter.version>2.3.0</pdfreporter.version>
 		<htmlreporter.version>1.0.1</htmlreporter.version>
 		<cucumber-extent.version>1.0.0</cucumber-extent.version>
 		<maven.compiler.source>1.8</maven.compiler.source>

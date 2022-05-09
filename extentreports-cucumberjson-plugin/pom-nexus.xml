@@ -5,7 +5,7 @@
 
 	<groupId>tech.grasshopper</groupId>
 	<artifactId>extentreports-cucumberjson-plugin</artifactId>
-	<version>2.11.4</version>
+	<version>2.12.0</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>extentreports-cucumberjson-plugin</name>
@@ -36,7 +36,7 @@
 		<gson.version>2.9.0</gson.version>
 		<extent.version>5.0.9</extent.version>
 		<lombok.version>1.18.18</lombok.version>
-		<pdfreporter.version>2.4.1</pdfreporter.version>
+		<pdfreporter.version>2.5.0</pdfreporter.version>
 		<htmlreporter.version>1.0.1</htmlreporter.version>
 		<cucumber-extent.version>1.0.1</cucumber-extent.version>
 		<maven.compiler.source>1.8</maven.compiler.source>

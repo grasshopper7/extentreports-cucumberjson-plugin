@@ -44,5 +44,5 @@ The Cucumber Json report is created with the below **setting in the Cucumber run
 
 Refer to **Plugin Configuration** section in the [article](https://ghchirp.tech/2114/).
 
-**Report Settings** - The Spark, PDF and Json reporter are enabled by default. Refer to **ExtentReport Settings** section in the [article](https://ghchirp.tech/2114/).
+**Report Settings** - The Spark, PDF, HTML and Json reporter are enabled by default. Refer to **ExtentReport Settings** section in the [article](https://ghchirp.tech/2114/).
 

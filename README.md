@@ -1,4 +1,4 @@
-This deals with **generating Extent reports for Cucumber-JVM**, version 4.3 and above, by using a **Maven Plugin which parses the Cucumber JSON report**. For more details refer to this [article](https://ghchirp.tech/2114/). Sample implementation can be found [here](https://github.com/grasshopper7/extentreports-cucumberjson-report).
+This deals with **generating Extent reports for Cucumber-JVM**, version 4.3 and above, by using a **Maven Plugin which parses the Cucumber JSON report**. For more details refer to this [article](https://ghchirp.online/2114/). Sample implementation can be found [here](https://github.com/grasshopper7/extentreports-cucumberjson-report).
 
 The **plugin version 2.0.0** uses **ExtentReport version 5** which deprecates many reporters other than **Spark, Json and Klov**. This plugin also includes a **custom [Pdf reporter](https://github.com/grasshopper7/cucumber-pdf-report)**. A ported version of the HTML extent report is also generated. The Spark, Json, Pdf and Html reports are enabled by default. Use the below **configuration** for the plugin.
 

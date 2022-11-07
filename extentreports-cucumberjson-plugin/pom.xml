@@ -5,8 +5,8 @@
 
 	<groupId>tech.grasshopper</groupId>
 	<artifactId>extentreports-cucumberjson-plugin</artifactId>
-	<version>2.14.0</version>
-	<url>https://ghchirp.tech/2114/</url>
+	<version>2.14.1</version>
+	<url>https://ghchirp.online/2114/</url>
 	<description>ExtentReports generation from Cucumber JSON report
 	</description>
 	<packaging>maven-plugin</packaging>
@@ -22,7 +22,7 @@
 		<lombok.version>1.18.18</lombok.version>
 		<pdfreporter.version>2.7.0</pdfreporter.version>
 		<htmlreporter.version>1.0.1</htmlreporter.version>
-		<cucumber-extent.version>1.0.1</cucumber-extent.version>
+		<cucumber-extent.version>1.0.2</cucumber-extent.version>
 		<mockito.version>3.3.3</mockito.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<junit5.vintage.version>5.6.0</junit5.vintage.version>

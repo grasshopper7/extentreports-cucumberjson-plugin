@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.14.1 (2022-11-07)
+* Updated cucumber-extent generator version to 1.0.2
+
 ## 2.13.0 (2022-6-19)
 * Updated pdf report data collector version to 2.7.0
 

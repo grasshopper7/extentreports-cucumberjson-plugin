@@ -46,6 +46,7 @@ public class ReportProperties {
 	private static final String DEFAULT_SCREENSHOTS_DIR_PATH = "../";
 	private static final LocalDateTime FOLDER_TIMESTAMP = LocalDateTime.now();
 	private static final String SYS_INFO_MARKER = "systeminfo.";
+	private static final String STATUS_FILTER = "statusfilter";
 
 	@Inject
 	public ReportProperties(ExtentReportsCucumberLogger logger) {
@@ -181,6 +182,10 @@ public class ReportProperties {
 
 	public void setStrictCucumber6Behavior(String strictCucumber6Behavior) {
 		this.strictCucumber6Behavior = Boolean.parseBoolean(strictCucumber6Behavior);
+	}
+
+	public String getStatusFilter() {
+		return getProperty(DEFAULT_REPORTS_PROPERTIES + STATUS_FILTER);
 	}
 
 	public Map<String, String> getSystemInfomation() {

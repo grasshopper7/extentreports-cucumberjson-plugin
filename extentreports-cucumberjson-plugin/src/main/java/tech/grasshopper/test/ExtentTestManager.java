@@ -32,6 +32,8 @@ public class ExtentTestManager {
 		Map<String, ExtentObserver<?>> reporters = reportInitializer.getReportKeyToInstance();
 		extent.setReportUsesManualConfiguration(true);
 
+		reportProperties.getSystemInfomation().forEach((k, v) -> extent.setSystemInfo(k, v));
+
 		ExtentTestHeirarchy.builder().extent(extent).features(features)
 				.displayAllHooks(reportProperties.isDisplayAllHooks())
 				.strictCucumber6Behavior(reportProperties.isStrictCucumber6Behavior()).build().createTestHeirarchy();

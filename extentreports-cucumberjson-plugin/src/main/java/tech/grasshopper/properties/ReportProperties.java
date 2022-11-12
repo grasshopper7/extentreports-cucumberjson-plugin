@@ -27,7 +27,7 @@ public class ReportProperties {
 	private String reportsPropertiesFileName;
 	private boolean displayAllHooks;
 	private boolean strictCucumber6Behavior;
-	
+
 	private ExtentReportsCucumberLogger logger;
 
 	private static final Properties properties = new Properties();
@@ -45,6 +45,7 @@ public class ReportProperties {
 	private static final String DEFAULT_SCREENSHOTS_LOCATION = "test-output/";
 	private static final String DEFAULT_SCREENSHOTS_DIR_PATH = "../";
 	private static final LocalDateTime FOLDER_TIMESTAMP = LocalDateTime.now();
+	private static final String SYS_INFO_MARKER = "systeminfo.";
 
 	@Inject
 	public ReportProperties(ExtentReportsCucumberLogger logger) {
@@ -65,7 +66,7 @@ public class ReportProperties {
 		loadDefaultPropertyFile();
 		loadProjectPropertyFile();
 	}
-	
+
 	public void loadPropertyFiles(String folderName) {
 		loadPropertyFiles(folderName, "");
 	}
@@ -131,7 +132,8 @@ public class ReportProperties {
 	}
 
 	public String getReportOutProperty(String key) {
-		return Paths.get(getBaseFolderName(), getProperty(DEFAULT_REPORTS_PROPERTIES + key + DEFAULT_REPORTS_PROPERTIES_OUT)).toString();
+		return Paths.get(getBaseFolderName(),
+				getProperty(DEFAULT_REPORTS_PROPERTIES + key + DEFAULT_REPORTS_PROPERTIES_OUT)).toString();
 	}
 
 	public String getReportScreenshotLocation() {
@@ -140,19 +142,21 @@ public class ReportProperties {
 			screenshotDirectory = getProperty(DEFAULT_REPORTS_SCREENSHOTS_DIRECTORY);
 		return Paths.get(getBaseFolderName(), screenshotDirectory).toString();
 	}
-	
+
 	public String getReportRelativeScreenshotLocation() {
 		String reportPathToScreenshotDir = DEFAULT_SCREENSHOTS_DIR_PATH;
-		if(!getProperty(DEFAULT_REPORTS_SCREENSHOTS_DIR_RELATIVE_PATH).isEmpty())
+		if (!getProperty(DEFAULT_REPORTS_SCREENSHOTS_DIR_RELATIVE_PATH).isEmpty())
 			reportPathToScreenshotDir = getProperty(DEFAULT_REPORTS_SCREENSHOTS_DIR_RELATIVE_PATH);
 		return reportPathToScreenshotDir;
 	}
-	
+
 	private String getBaseFolderName() {
 		String folderpattern = "";
-		if (!getProperty(REPORTS_BASEFOLDER_NAME).isEmpty() && !getProperty(REPORTS_BASEFOLDER_DATETIMEPATTERN).isEmpty()) {
-			DateTimeFormatter folderSuffix = DateTimeFormatter.ofPattern(getProperty(REPORTS_BASEFOLDER_DATETIMEPATTERN));
-			folderpattern = getProperty(REPORTS_BASEFOLDER_NAME) + " " +folderSuffix.format(FOLDER_TIMESTAMP);
+		if (!getProperty(REPORTS_BASEFOLDER_NAME).isEmpty()
+				&& !getProperty(REPORTS_BASEFOLDER_DATETIMEPATTERN).isEmpty()) {
+			DateTimeFormatter folderSuffix = DateTimeFormatter
+					.ofPattern(getProperty(REPORTS_BASEFOLDER_DATETIMEPATTERN));
+			folderpattern = getProperty(REPORTS_BASEFOLDER_NAME) + " " + folderSuffix.format(FOLDER_TIMESTAMP);
 		}
 		return folderpattern;
 	}
@@ -177,5 +181,18 @@ public class ReportProperties {
 
 	public void setStrictCucumber6Behavior(String strictCucumber6Behavior) {
 		this.strictCucumber6Behavior = Boolean.parseBoolean(strictCucumber6Behavior);
+	}
+
+	public Map<String, String> getSystemInfomation() {
+		Map<String, String> systemInfoMap = new HashMap<>();
+
+		properties.forEach((k, v) -> {
+			String key = String.valueOf(k);
+			if (key.startsWith(SYS_INFO_MARKER)) {
+				key = key.substring(key.indexOf('.') + 1);
+				systemInfoMap.put(key, String.valueOf(v));
+			}
+		});
+		return systemInfoMap;
 	}
 }

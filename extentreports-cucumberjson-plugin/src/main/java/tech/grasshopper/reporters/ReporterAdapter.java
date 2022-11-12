@@ -10,6 +10,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.JsonFormatter;
 import com.aventstack.extentreports.reporter.ReporterFilterable;
+import com.aventstack.extentreports.reporter.configuration.ViewName;
 
 import tech.grasshopper.pdf.extent.ExtentPDFCucumberReporter;
 import tech.grasshopper.properties.ReportProperties;
@@ -35,8 +36,23 @@ public abstract class ReporterAdapter {
 		@Override
 		public ExtentObserver<?> createReporter() {
 			ExtentSparkReporter spark = new ExtentSparkReporter(reportProperties.getReportOutProperty(id));
+			sparkReportViewOrder(spark);
 			filterReportStatus(spark);
 			return spark;
+		}
+
+		private void sparkReportViewOrder(ExtentSparkReporter spark) {
+			try {
+				String viewOrder = reportProperties.getSparkViewOrder();
+				if (viewOrder == null || viewOrder.isEmpty())
+					return;
+
+				List<ViewName> viewOrders = Arrays.stream(viewOrder.split(","))
+						.map(v -> ViewName.valueOf(v.toUpperCase())).collect(Collectors.toList());
+				spark.viewConfigurer().viewOrder().as(viewOrders).apply();
+			} catch (Exception e) {
+				// Do nothing. Uses default order.
+			}
 		}
 	}
 

@@ -46,6 +46,7 @@ public class ReportProperties {
 	private static final String DEFAULT_SCREENSHOTS_DIR_PATH = "../";
 	private static final LocalDateTime FOLDER_TIMESTAMP = LocalDateTime.now();
 	private static final String SYS_INFO_MARKER = "systeminfo.";
+	private static final String SPARK_VIEW_ORDER = "spark.vieworder";
 	private static final String STATUS_FILTER = "statusfilter";
 
 	@Inject
@@ -186,6 +187,10 @@ public class ReportProperties {
 
 	public String getStatusFilter() {
 		return getProperty(DEFAULT_REPORTS_PROPERTIES + STATUS_FILTER);
+	}
+
+	public String getSparkViewOrder() {
+		return getProperty(DEFAULT_REPORTS_PROPERTIES + SPARK_VIEW_ORDER);
 	}
 
 	public Map<String, String> getSystemInfomation() {

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.15.0 (2022-11-13)
+* Added ability to add system info
+* Added ability to filter reports by status
+* Addd ability to sort spark report view order
+
 ## 2.14.1 (2022-11-07)
 * Updated cucumber-extent generator version to 1.0.2
 

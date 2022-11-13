@@ -7,7 +7,7 @@ The **plugin version 2.0.0** uses **ExtentReport version 5** which deprecates ma
 <plugin>
 	<groupId>tech.grasshopper</groupId>
 	<artifactId>extentreports-cucumberjson-plugin</artifactId>
-	<version>2.14.1</version>
+	<version>2.15.0</version>
 	<executions>
 		<execution>
 			<id>report</id>
@@ -29,7 +29,7 @@ The **plugin version 2.0.0** uses **ExtentReport version 5** which deprecates ma
 To use ExtentReports version 4 use the plugin version 1.6.0 in the POM. Refer to **Plugin Configuration** section in the [article](https://ghchirp.tech/2114/). 
 
 
-The Cucumber Json report is created with the below **setting in the Cucumber runner**. Refer to **Cucumber JSON Formatter Setup** section in the [article](https://ghchirp.tech/2114/).
+The Cucumber Json report is created with the below **setting in the Cucumber runner**. Refer to **Cucumber JSON Formatter Setup** section in the [article](https://ghchirp.online/2114/).
 ```
 @CucumberOptions(plugin = { "json:target/json-report/cucumber.json"})
 ```
@@ -44,5 +44,5 @@ The Cucumber Json report is created with the below **setting in the Cucumber run
 
 Refer to **Plugin Configuration** section in the [article](https://ghchirp.tech/2114/).
 
-**Report Settings** - The Spark, PDF, HTML and Json reporter are enabled by default. Refer to **ExtentReport Settings** section in the [article](https://ghchirp.tech/2114/).
+**Report Settings** - The Spark, PDF, HTML and Json reporter are enabled by default. Refer to **ExtentReport Settings** section in the [article](https://ghchirp.online/2114/).
 

@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.16.0 (2023-5-12)
+* Updated pdf report version
+* Added Excel reporter
+
 ## 2.15.0 (2022-11-13)
 * Added ability to add system info
 * Added ability to filter reports by status

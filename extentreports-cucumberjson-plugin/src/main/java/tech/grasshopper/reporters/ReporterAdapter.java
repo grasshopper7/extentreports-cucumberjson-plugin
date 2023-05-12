@@ -14,6 +14,7 @@ import com.aventstack.extentreports.reporter.configuration.ViewName;
 
 import tech.grasshopper.pdf.extent.ExtentPDFCucumberReporter;
 import tech.grasshopper.properties.ReportProperties;
+import tech.grasshopper.reporter.ExtentExcelCucumberReporter;
 
 public abstract class ReporterAdapter {
 
@@ -94,6 +95,18 @@ public abstract class ReporterAdapter {
 			ExtentHtmlReporter html = new ExtentHtmlReporter(reportProperties.getReportOutProperty(id));
 			filterReportStatus(html);
 			return html;
+		}
+	}
+	
+	public static class ExcelReportAdapter extends ReporterAdapter {
+
+		public ExcelReportAdapter(String id, ReportProperties reportProperties) {
+			super(id, reportProperties);
+		}
+
+		@Override
+		public ExtentObserver<?> createReporter() {
+			return new ExtentExcelCucumberReporter(reportProperties.getReportOutProperty(id));
 		}
 	}
 
